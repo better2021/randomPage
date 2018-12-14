@@ -4,6 +4,7 @@
   </div>
 </template>
 <script>
+import topMv from "../assets/mv.json"; //本地导入的json数据
 export default {
   data() {
     return {
@@ -11,14 +12,54 @@ export default {
     };
   },
   mounted() {
+    console.log(topMv);
+    this.getMoive();
     this.getData();
+    this.getMusic();
   },
   methods: {
-    //网易云音乐
-    getData() {
+    //获取动漫海贼王
+    getMoive() {
+      this.jsonp(
+        "http://cache.video.iqiyi.com/jp/avlist/202861101/1/",
+        {
+          method: "GET"
+        },
+        (err, data) => {
+          if (err) {
+            throw new Error(err);
+          } else {
+            console.log(data);
+          }
+        }
+      );
+    },
+    //获取音乐排行榜
+    getMusic() {
       this.axios({
         method: "GET",
-        url: "https://163.fczbl.vip/top/mv?limit=10",
+        url: "https://api.apiopen.top/musicRankings",
+        data: {}
+      })
+        .then(res => {
+          if (res.status === 200) {
+            console.log(res.data.result);
+          } else {
+            console.log(res.data.message);
+          }
+        })
+        .catch(error => {
+          console.log(error);
+        })
+        .finally(() => {
+          console.log("接口请求完成时执行，成功或失败都回执行");
+        });
+    },
+    //随机获取一首古诗
+    getData() {
+      fetch({
+        method: "GET",
+        url: "https://api.apiopen.top/recommendPoetry", //https://api.apiopen.top/musicRankings
         data: {}
       })
         .then(res => {
@@ -66,10 +107,11 @@ export default {
     getFilm() {
       this.jsonp(
         "http://api.douban.com/v2/movie/top250?start=0&count=50",
-        { method: "GET" },
+        {
+          method: "GET"
+        },
         (err, data) => {
           if (err) {
-            console.log(err);
             throw new Error(err);
           } else {
             console.log(data);
