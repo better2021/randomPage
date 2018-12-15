@@ -1,6 +1,29 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <h1>MV与豆瓣TOP30</h1>
+    <div class="mvBox">
+      <ul>
+        <li v-for="item in mvList">
+          <img :src="item.cover">
+        </li>
+      </ul>
+    </div>
+    <div class="topFilm">
+      <h3>{{title}}</h3>
+      <ul>
+        <li
+          v-for="(todo,index) in dataSource"
+          :key="index"
+          :style="`background:url(${todo.images.medium}) no-repeat`"
+          @click="jump(todo)"
+        >
+          <p>
+            <span>{{todo.title}}</span>
+            <span>{{todo.year}}</span>
+          </p>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 <script>
@@ -8,18 +31,21 @@ import topMv from "./mv.json"; //本地导入的json数据
 export default {
   data() {
     return {
-      dataSource: []
+      dataSource: [],
+      mvList: [],
+      title: ""
     };
   },
   mounted() {
-    console.log(topMv);
+    console.log(topMv.data);
+    this.mvList = topMv.data;
     this.getFilm();
   },
   methods: {
     //豆瓣电影top250
     getFilm() {
       this.jsonp(
-        "http://api.douban.com/v2/movie/top250?start=0&count=50",
+        "http://api.douban.com/v2/movie/top250?start=0&count=36",
         {
           method: "GET"
         },
@@ -28,10 +54,14 @@ export default {
             throw new Error(err);
           } else {
             console.log(data);
-            this.dataSource = data;
+            this.dataSource = data.subjects;
+            this.title = data.title;
           }
         }
       );
+    },
+    jump(todo) {
+      window.open(todo.alt, "_blank");
     }
   }
 };
@@ -40,6 +70,55 @@ export default {
 .about {
   h1 {
     color: #7ec699;
+  }
+  .mvBox {
+    ul {
+      display: flex;
+      li {
+        flex: 1;
+        width: 200px;
+        img {
+          width: 100%;
+        }
+      }
+    }
+  }
+  .topFilm {
+    width: 100%;
+    ul {
+      width: 100%;
+      box-sizing: border-box;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      li {
+        position: relative;
+        width: 200px;
+        height: 300px;
+        margin: 10px 20px;
+        transition: all 0.5s;
+        img {
+          width: 100%;
+        }
+        p {
+          width: 100%;
+          position: absolute;
+          z-index: 99;
+          left: 0;
+          bottom: 0;
+          display: flex;
+          justify-content: space-around;
+          color: #ffffff;
+          height: 30px;
+          line-height: 30px;
+          background: rgba(0, 0, 0, 0.5);
+        }
+      }
+      li:hover {
+        transform: translateY(10px);
+        box-shadow: 0px 0px 3px blueviolet;
+      }
+    }
   }
 }
 </style>

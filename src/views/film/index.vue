@@ -6,6 +6,9 @@
     </h2>
     <ul>
       <li v-for="item in dataSource.subjects">
+        <p class="tags">
+          <span v-for="todo in item.genres" :style="`background:${color()}`">{{todo}}</span>
+        </p>
         <a :href="item.alt" target="_blank">
           <img :src="item.images.large">
         </a>
@@ -22,9 +25,14 @@ export default {
       dataSource: {}
     };
   },
-  mounted() {
+  created() {
     this.getData();
   },
+  // computed: {
+  //   color() {
+  //     return "#" + ((Math.random() * 0xffffff) << 0).toString(16); // 随机颜色
+  //   }
+  // },
   methods: {
     //豆瓣正在热映电影
     getData() {
@@ -41,6 +49,9 @@ export default {
           }
         }
       );
+    },
+    color() {
+      return "#" + ((Math.random() * 0xffffff) << 0).toString(16); // 随机颜色
     }
   }
 };
@@ -58,6 +69,7 @@ export default {
     padding: 10px 0px;
     list-style: none;
     li {
+      position: relative;
       float: left;
       width: 300px;
       margin: 15px 50px;
@@ -74,10 +86,25 @@ export default {
         width: 300px;
         height: 400px;
       }
+      .tags {
+        position: absolute;
+        left: 0;
+        top: 0;
+        span {
+          display: inline-block;
+          width: 60px;
+          height: 24px;
+          line-height: 24px;
+          text-align: center;
+          margin-left: 5px;
+          border-radius: 5px;
+          color: #f1f1f1;
+        }
+      }
     }
     li:hover {
       box-shadow: 3px 3px 0px rgba(65, 184, 131, 0.5);
-      transform: scale(1.2);
+      transform: scale(1.1);
     }
   }
 }
