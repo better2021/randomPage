@@ -82,6 +82,11 @@ export default {
   h2 {
     color: cadetblue;
   }
+  .poetry {
+    p {
+      line-height: 30px;
+    }
+  }
   .duanzi {
     ul {
       display: flex;
