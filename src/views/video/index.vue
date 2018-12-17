@@ -55,13 +55,30 @@ export default {
       let event = e || window.event;
       let videoPlay = this.$refs.videoPlay;
       console.log(event.keyCode);
+      //console.log(videoPlay.paused);
       if (event.keyCode === 32) {
         if (videoPlay.paused) {
           videoPlay.play();
         } else {
           videoPlay.pause();
         }
+      } else if (event.keyCode === 13) {
+        console.log(document.webkitIsFullScreen);
+        let element = document.documentElement;
+        if (document.webkitIsFullScreen) {
+          document.webkitCancelFullScreen(); //退出全屏
+        } else {
+          //element.webkitRequestFullScreen(); //页面进入全屏
+          videoPlay.webkitRequestFullScreen(); //视频进入全屏
+        }
       }
+      videoPlay.addEventListener(
+        "ended",
+        function() {
+          document.webkitCancelFullScreen(); //播放完毕自动退出全屏
+        },
+        false
+      );
     };
   },
   computed: {
