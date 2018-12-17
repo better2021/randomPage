@@ -2,7 +2,8 @@
   <div class="wrapper">
     <h2>
       {{dataSource.title}}
-      <span>（总共{{dataSource.total}}部）</span>
+      （总共
+      <span id="totalNum"></span>部）
     </h2>
     <ul>
       <li v-for="item in dataSource.subjects">
@@ -19,6 +20,7 @@
 </template>
 
 <script>
+import CountUp from "countup";
 export default {
   data() {
     return {
@@ -28,11 +30,6 @@ export default {
   created() {
     this.getData();
   },
-  // computed: {
-  //   color() {
-  //     return "#" + ((Math.random() * 0xffffff) << 0).toString(16); // 随机颜色
-  //   }
-  // },
   methods: {
     //豆瓣正在热映电影
     getData() {
@@ -44,7 +41,9 @@ export default {
             console.log(err);
             throw new Error(err);
           } else {
-            console.log(data);
+            //console.log(data);
+            let numAnim = new CountUp("totalNum", 0, data.total);
+            numAnim.start();
             this.dataSource = data;
           }
         }

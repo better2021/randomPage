@@ -1,7 +1,15 @@
 <template>
-  <div id="music"></div>
+  <div id="music">
+    <div class="numBox">
+      <ul>
+        <li id="one" style="font-size:50px;color:blue"></li>
+        <li id="two" style="font-size:56px;color:green"></li>
+      </ul>
+    </div>
+  </div>
 </template>
 <script>
+import countUp from "countup";
 export default {
   data() {
     return {
@@ -10,6 +18,13 @@ export default {
   },
   created() {
     this.getMusic();
+  },
+  mounted() {
+    //参数说明：‘one’=>绑定的id名；0=>起始值；12345=>结束值;0=>小数位数；3=>延时秒数
+    let numAnim = new countUp("one", 0, 12345, 0, 3);
+    let numdemo = new countUp("two", 0, 3650.25, 2);
+    numAnim.start();
+    numdemo.start();
   },
   methods: {
     //获取音乐排行榜
@@ -37,6 +52,23 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+.numBox {
+  ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    li {
+      width: 300px;
+      height: 200px;
+      line-height: 200px;
+      text-align: center;
+      border: 1px #f1f1f1 solid;
+      margin: 10px;
+      box-shadow: 3px 3px 5px #dddddd;
+      font-weight: 600;
+    }
+  }
+}
 </style>
 
 
