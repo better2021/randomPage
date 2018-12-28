@@ -1,6 +1,12 @@
 <template>
   <div id="movie">
-    <draggable v-model="myArray" :options="{group:'people'}" @start="drag=true" @end="drag=false">
+    <draggable
+      v-model="myArray"
+      :options="{group:'people',animation:500}"
+      @start="dragStart=true"
+      @end="dragEnd($event)"
+      id="capture"
+    >
       <transition-group>
         <div class="box" v-for="(element,index) in myArray" :key="element.data.id">
           <div class="pic">
@@ -13,11 +19,19 @@
         </div>
       </transition-group>
     </draggable>
+    <div @click="screen" class="camera">
+      <img
+        src="https://i.loli.net/2018/12/28/5c2623e825a5b.png"
+        alt="camera.png"
+        title="camera.png"
+      >
+    </div>
+    <!-- <canvas id="canvas"></canvas> -->
   </div>
 </template>
 <script>
 import draggable from "vuedraggable";
-import { Promise } from "q";
+import html2canvas from "html2canvas";
 export default {
   components: {
     draggable
@@ -32,7 +46,6 @@ export default {
   },
   methods: {
     getMoive() {
-      console.log(1212);
       fetch("https://api.apiopen.top/videoCategory", {
         method: "GET"
       })
@@ -48,6 +61,27 @@ export default {
         .catch(err => {
           console.log(err);
         });
+    },
+    dragEnd(event) {
+      //console.log(event);
+      //console.log(this.myArray);
+      let arr = [];
+      this.myArray.forEach(item => {
+        arr.push(item.data.description);
+      });
+      console.log(arr);
+    },
+    //截图
+    screen() {
+      /*html2canvas()中,第一个参数是要截图的Dom对象，第二个参数时渲染完成后回调的canvas对象。*/
+      html2canvas(document.getElementById("capture"), {
+        useCORS: true, //用来设置是否允许使用跨域的图片进行访问
+        allowTaint: true
+      }).then(canvas => {
+        let box = document.getElementById("movie");
+        box.appendChild(canvas);
+        console.log(canvas);
+      });
     }
   }
 };
@@ -91,6 +125,22 @@ export default {
         color: goldenrod;
       }
     }
+  }
+  .camera {
+    position: fixed;
+    top: 30px;
+    right: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    overflow: hidden;
+    transition: all 0.3s;
+    img {
+      width: 100%;
+    }
+  }
+  .camera:hover {
+    transform: scale(1.1);
   }
 }
 </style>
