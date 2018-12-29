@@ -26,7 +26,7 @@
         title="camera.png"
       >
     </div>
-    <!-- <canvas id="canvas"></canvas> -->
+    <canvas id="canvas"></canvas>
   </div>
 </template>
 <script>
@@ -77,11 +77,16 @@ export default {
       html2canvas(document.getElementById("capture"), {
         useCORS: true, //用来设置是否允许使用跨域的图片进行访问
         allowTaint: true
-      }).then(canvas => {
-        let box = document.getElementById("movie");
-        box.appendChild(canvas);
-        console.log(canvas);
-      });
+      })
+        .then(canvas => {
+          let box = document.getElementById("movie");
+          canvas.setattribute("id", "canvas");
+          box.appendChild(canvas);
+          console.log(canvas);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   }
 };
