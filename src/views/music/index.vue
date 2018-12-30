@@ -1,19 +1,39 @@
 <template>
-  <div id="music">
+  <div id="music" :style="{background:colors.hex}">
     <div class="numBox">
       <ul>
-        <li id="one" style="font-size:50px;color:blue"></li>
-        <li id="two" style="font-size:56px;color:green"></li>
+        <li id="one" :style="{color:colorOne.hex}"></li>
+        <li id="two" :style="{color:colorTwo.hex}"></li>
       </ul>
+    </div>
+    <div style="display: flex;justify-content: space-around">
+      <photoshop-picker v-model="colors" @input="updateValue"/>
+      <chrome-picker v-model="colorOne"/>
+      <sketch-picker v-model="colorTwo"/>
     </div>
   </div>
 </template>
 <script>
 import countUp from "countup";
+import { Photoshop, Chrome, Sketch } from "vue-color";
 export default {
+  components: {
+    "photoshop-picker": Photoshop,
+    "chrome-picker": Chrome,
+    "sketch-picker": Sketch
+  },
   data() {
     return {
-      musicList: []
+      musicList: [],
+      colors: {
+        hex: "#3FB87C"
+      },
+      colorOne: {
+        hex: "#f00f00"
+      },
+      colorTwo: {
+        hex: "#F5A623"
+      }
     };
   },
   created() {
@@ -47,6 +67,10 @@ export default {
         .finally(() => {
           console.log("接口请求完成时执行，成功或失败都回执行!");
         });
+    },
+    //选择的颜色
+    updateValue() {
+      console.log(this.colors);
     }
   }
 };
@@ -66,6 +90,8 @@ export default {
       margin: 10px;
       box-shadow: 3px 3px 5px #dddddd;
       font-weight: 600;
+      font-size: 50px;
+      background: #ffffff;
     }
   }
 }
