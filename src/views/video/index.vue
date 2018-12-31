@@ -156,6 +156,7 @@ export default {
 </script>
 <style lang="less" scoped>
 #video {
+  animation: fadeIn 1s ease-out;
   .box {
     width: 1000px;
     margin: 0 auto;
@@ -253,6 +254,17 @@ export default {
         }
       }
     }
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px) scale(1);
   }
 }
 </style>

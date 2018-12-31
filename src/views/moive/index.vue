@@ -1,5 +1,6 @@
 <template>
   <div id="movie">
+    <h2>可以随意拖动的排序的图片，试试哦</h2>
     <draggable
       v-model="myArray"
       :options="{group:'people',animation:500}"
@@ -26,7 +27,7 @@
         title="camera.png"
       >
     </div>
-    <canvas id="canvas"></canvas>
+    <!-- <canvas id="canvas"></canvas> -->
   </div>
 </template>
 <script>
@@ -80,7 +81,6 @@ export default {
       })
         .then(canvas => {
           let box = document.getElementById("movie");
-          canvas.setattribute("id", "canvas");
           box.appendChild(canvas);
           console.log(canvas);
         })
@@ -97,6 +97,7 @@ export default {
   width: 1000px;
   box-sizing: border-box;
   margin: 0 auto;
+  animation: fadeIn 1s linear;
   > div {
     > span {
       display: flex;
@@ -146,6 +147,21 @@ export default {
   }
   .camera:hover {
     transform: scale(1.1);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
   }
 }
 </style>

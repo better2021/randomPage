@@ -61,6 +61,7 @@ export default {
   width: 1220px;
   margin: 0 auto;
   overflow: hidden;
+  animation: fadeIn 2s ease-in-out;
   h2 {
     color: #41b883;
   }
@@ -105,6 +106,21 @@ export default {
       box-shadow: 3px 3px 0px rgba(65, 184, 131, 0.5);
       transform: scale(1.1);
     }
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
   }
 }
 </style>
