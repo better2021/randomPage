@@ -85,6 +85,7 @@ export default {
   }
   .topFilm {
     width: 100%;
+    padding: 20px 10px;
     ul {
       width: 100%;
       box-sizing: border-box;

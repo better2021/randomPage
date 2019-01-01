@@ -79,6 +79,13 @@ export default {
 
 <style lang="less" scoped>
 #joke {
+  // animation-name: oneAimation, twoAimation, threeAimation;
+  // animation-duration: 3s, 3s, 3s;
+  // animation-timing-function: linear, ease-in-out, linear;
+  // animation-delay: 0s 3s, 6s;
+  // animation-iteration-count: infinite, 1, 1;
+
+  animation: godAnimation 20s linear infinite;
   h2 {
     color: cadetblue;
   }
@@ -105,5 +112,48 @@ export default {
     }
   }
 }
+
+@keyframes godAnimation {
+  0% {
+    background: cadetblue;
+  }
+  25% {
+    background: #f60;
+  }
+  50% {
+    background: green;
+  }
+  75% {
+    background: gold;
+  }
+  100% {
+    background: rgb(194, 79, 205);
+  }
+}
+
+// @keyframes oneAimation {
+//   0% {
+//     background: cadetblue;
+//   }
+//   100% {
+//     background: rgb(194, 79, 205);
+//   }
+// }
+// @keyframes twoAimation {
+//   0% {
+//     background: #ff0000;
+//   }
+//   100% {
+//     background: chocolate;
+//   }
+// }
+// @keyframes threeAimation {
+//   0% {
+//     background: green;
+//   }
+//   100% {
+//     background: gold;
+//   }
+// }
 </style>
 

@@ -92,6 +92,16 @@ export default {
       font-weight: 600;
       font-size: 50px;
       background: #ffffff;
+      transition: all 0.5s ease-out;
+    }
+    li:nth-of-type(1) {
+      transform: skew(10deg);
+    }
+    li:nth-of-type(2) {
+      transform: skew(-10deg);
+    }
+    li:hover {
+      transform: skewX(0);
     }
   }
 }
