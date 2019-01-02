@@ -1,10 +1,16 @@
 <template>
-  <div class="wrapper">
+  <div
+    class="wrapper"
+    v-loading.fullscreen.lock="loading"
+    element-loading-text="拼命加载中"
+    element-loading-background="rgba(255, 255, 255, 0.6)"
+  >
     <h2>
       {{dataSource.title}}
       （总共
       <span id="totalNum"></span>部）
     </h2>
+    <el-rate v-model="value3" show-text></el-rate>
     <ul>
       <li v-for="item in dataSource.subjects">
         <p class="tags">
@@ -24,7 +30,9 @@ import CountUp from "countup";
 export default {
   data() {
     return {
-      dataSource: {}
+      loading: false,
+      dataSource: {},
+      value3: 4
     };
   },
   created() {
@@ -33,6 +41,7 @@ export default {
   methods: {
     //豆瓣正在热映电影
     getData() {
+      this.loading = true;
       this.jsonp(
         "https://api.douban.com/v2/movie/in_theaters?start=0&count=30",
         { method: "GET" },
@@ -46,6 +55,7 @@ export default {
             numAnim.start();
             this.dataSource = data;
           }
+          this.loading = false;
         }
       );
     },
@@ -57,6 +67,20 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@-webkit-keyframes sk-rotatePlane {
+  0% {
+    -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+    transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+  }
+  50% {
+    -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+    transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+  }
+  100% {
+    -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+    transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+  }
+}
 .wrapper {
   width: 1220px;
   margin: 0 auto;
