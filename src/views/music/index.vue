@@ -11,16 +11,19 @@
       <chrome-picker v-model="colorOne"/>
       <sketch-picker v-model="colorTwo"/>
     </div>
+    <SwiperDome></SwiperDome>
   </div>
 </template>
 <script>
 import countUp from "countup";
+import SwiperDome from "@/components/swiperDome";
 import { Photoshop, Chrome, Sketch } from "vue-color";
 export default {
   components: {
     "photoshop-picker": Photoshop,
     "chrome-picker": Chrome,
-    "sketch-picker": Sketch
+    "sketch-picker": Sketch,
+    SwiperDome
   },
   data() {
     return {
