@@ -17,7 +17,7 @@
           <span v-for="todo in item.genres" :style="`background:${color()}`">{{todo}}</span>
         </p>
         <a :href="item.alt" target="_blank">
-          <img :src="item.images.large">
+          <img v-lazy="item.images.large">
         </a>
         <p>{{item.title}}</p>
       </li>

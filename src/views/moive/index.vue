@@ -11,7 +11,7 @@
       <transition-group>
         <div class="box" v-for="(element,index) in myArray" :key="element.data.id">
           <div class="pic">
-            <img :src="element.data.icon" :alt="element.data.description">
+            <img v-lazy="element.data.icon" :alt="element.data.description">
           </div>
           <p>
             <span>{{index +1}}</span>

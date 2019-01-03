@@ -19,7 +19,7 @@
         <li
           v-for="(todo,index) in dataSource"
           :key="index"
-          :style="`background:url(${todo.images.medium}) no-repeat`"
+          v-lazy:background-image="todo.images.medium"
           @click="jump(todo)"
         >
           <p>
