@@ -1,5 +1,10 @@
 <template>
-  <div class="about">
+  <div
+    class="about"
+    v-loading.fullscreen.lock="loading"
+    element-loading-text="拼命加载中"
+    element-loading-background="rgba(255, 255, 255, 0.6)"
+  >
     <h1>MV与豆瓣TOP30</h1>
     <div class="mvBox">
       <ul>
@@ -33,7 +38,8 @@ export default {
     return {
       dataSource: [],
       mvList: [],
-      title: ""
+      title: "",
+      loading: false
     };
   },
   mounted() {
@@ -44,6 +50,7 @@ export default {
   methods: {
     //豆瓣电影top250
     getFilm() {
+      this.loading = true;
       this.jsonp(
         "http://api.douban.com/v2/movie/top250?start=0&count=36",
         {
@@ -57,6 +64,7 @@ export default {
             this.dataSource = data.subjects;
             this.title = data.title;
           }
+          this.loading = false;
         }
       );
     },

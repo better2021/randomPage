@@ -12,6 +12,7 @@
     "element-ui": "^2.4.11",
     "html2canvas": "^1.0.0-alpha.12",
     "jsonp": "^0.2.1",
+    "nprogress": "^0.2.0",
     "vue": "^2.5.17",
     "vue-color": "^2.7.0",
     "vue-router": "^3.0.1",
