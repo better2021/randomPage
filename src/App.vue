@@ -30,6 +30,7 @@ ul {
 }
 #nav {
   padding: 30px;
+  background: rgba(255, 255, 255, 0.65);
   a {
     font-weight: bold;
     color: #2c3e50;
@@ -37,5 +38,17 @@ ul {
       color: #42b983;
     }
   }
+}
+
+#effect {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100vw;
+  height: 100%;
+  cursor: pointer;
+  pointer-events: none;
 }
 </style>

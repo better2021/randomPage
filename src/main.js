@@ -10,6 +10,7 @@ import VueLazyload from 'vue-lazyload';
 
 import 'element-ui/lib/theme-chalk/index.css';
 import 'nprogress/nprogress.css';
+import './libs/effectClick';
 
 // 生产环境关掉提示
 Vue.config.productionTip = false;
