@@ -18,6 +18,7 @@
 import countUp from "countup";
 import SwiperDome from "@/components/swiperDome";
 import { Photoshop, Chrome, Sketch } from "vue-color";
+
 export default {
   components: {
     "photoshop-picker": Photoshop,

@@ -11,6 +11,9 @@
       <span id="totalNum"></span>部）
     </h2>
     <el-rate v-model="value3" show-text></el-rate>
+    <div>
+      <canvas id="canvas" style="width:500px;">当前浏览器不支持canvas，请更换浏览器后再试</canvas>
+    </div>
     <ul>
       <li v-for="item in dataSource.subjects">
         <p class="tags">
@@ -27,6 +30,8 @@
 
 <script>
 import CountUp from "countup";
+import { clock } from "../../libs/clock.js";
+
 export default {
   data() {
     return {
@@ -38,6 +43,9 @@ export default {
   created() {
     this.getData();
   },
+  mounted() {
+    clock(); //执行时钟效果
+  },
   methods: {
     //豆瓣正在热映电影
     getData() {
@@ -46,6 +54,7 @@ export default {
         "https://api.douban.com/v2/movie/in_theaters?start=0&count=30",
         { method: "GET" },
         (err, data) => {
+          this.loading = false;
           if (err) {
             console.log(err);
             throw new Error(err);
@@ -55,7 +64,6 @@ export default {
             numAnim.start();
             this.dataSource = data;
           }
-          this.loading = false;
         }
       );
     },
