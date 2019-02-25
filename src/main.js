@@ -10,7 +10,7 @@ import VueLazyload from 'vue-lazyload';
 
 import 'element-ui/lib/theme-chalk/index.css';
 import 'nprogress/nprogress.css';
-import './libs/effectClick';
+// import './libs/effectClick'; // 鼠标点击背景变色效果
 
 // 生产环境关掉提示
 Vue.config.productionTip = false;
