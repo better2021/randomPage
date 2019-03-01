@@ -1,5 +1,7 @@
 <template>
   <div id="joke">
+    <div class="moveBox" v-drag></div>
+    <div class="greenBox" v-drag.limit></div>
     <h2>段子与古诗</h2>
     <div class="poetry">
       <h3>{{obj.title}}</h3>
@@ -86,6 +88,22 @@ export default {
   // animation-iteration-count: infinite, 1, 1;
 
   animation: godAnimation 20s linear infinite;
+  .moveBox {
+    position: absolute;
+    left: 0;
+    top: 10px;
+    width: 100px;
+    height: 100px;
+    background: red;
+  }
+  .greenBox {
+    position: absolute;
+    left: 0;
+    top: 120px;
+    width: 100px;
+    height: 100px;
+    background: green;
+  }
   h2 {
     color: cadetblue;
   }

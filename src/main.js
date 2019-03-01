@@ -37,6 +37,38 @@ router.afterEach(transition => {
   NProgress.remove();
 });
 
+// 创建自定义指令
+Vue.directive('drag', {
+  // bind 当指令绑定到元素上时触发
+  bind(el, binding) {
+    // el 当前绑定元素，binding 当前绑定对象
+    // console.log(el, binding);
+    el.onmousedown = function(e) {
+      let disX = e.clientX - el.offsetLeft;
+      let disY = e.clientY - el.offsetTop;
+
+      document.onmousemove = function(e) {
+        let L = e.clientX - disX;
+        let T = e.clientY - disY;
+
+        if (binding.modifiers.limit) {
+          if (L < 0) L = 0;
+          if (T < 0) T = 0;
+        }
+
+        el.style.left = L + 'px';
+        el.style.top = T + 'px';
+      };
+
+      document.onmouseup = function(e) {
+        document.onmousemove = null;
+      };
+
+      return false;
+    };
+  }
+});
+
 new Vue({
   router,
   store,
