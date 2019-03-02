@@ -44,6 +44,7 @@ Vue.directive('drag', {
     // el 当前绑定元素，binding 当前绑定对象
     // console.log(el, binding);
     el.onmousedown = function(e) {
+      // 鼠标按下
       let disX = e.clientX - el.offsetLeft;
       let disY = e.clientY - el.offsetTop;
 
@@ -60,12 +61,20 @@ Vue.directive('drag', {
         el.style.top = T + 'px';
       };
 
+      // 鼠标键弹起
       document.onmouseup = function(e) {
         document.onmousemove = null;
       };
 
       return false;
     };
+  }
+});
+
+// $eventBus 和 内置的$root 是一样的
+Vue.use({
+  install(Vue) {
+    Vue.prototype.$eventBus = new Vue();
   }
 });
 
