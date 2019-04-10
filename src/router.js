@@ -41,6 +41,11 @@ export default new Router({
       path: '/video',
       name: 'video',
       component: resolve => require(['@/views/video'], resolve)
+    },
+    {
+      path: '/viewImg',
+      name: 'viewImg',
+      component: resolve => require(['@/views/viewImg'], resolve)
     }
   ]
 });
