@@ -4,13 +4,18 @@
     <input type="file" accept="image/*" class="file">
     <button onclick="javascript:alert('hello world')" id="btn">按</button>
     <span style="color:#f00;font-size:30px">{{startVal}}</span>
+    <div>
+      <qrcode value="https://feiyuweb.github.io/vueApp/" :options="{ width: 200,color: { dark: '#5f9da3' } }" tag="img"></qrcode>
+    </div>
   </div>
 </template>
 
 <script>
 import {star,getExplorer} from '@/libs/index'
+import qrcode from '@chenfengyuan/vue-qrcode';
 
 export default {
+  components:{qrcode},
   data(){
     return{
       startVal:''
