@@ -32,47 +32,47 @@
   </div>
 </template>
 <script>
-import topMv from "./mv.json"; //本地导入的json数据
+import topMv from './mv.json' //本地导入的json数据
 export default {
   data() {
     return {
       dataSource: [],
       mvList: [],
-      title: "",
+      title: '',
       loading: false
-    };
+    }
   },
   mounted() {
-    console.log(topMv.data);
-    this.mvList = topMv.data;
-    this.getFilm();
+    console.log(topMv.data)
+    this.mvList = topMv.data
+    this.getFilm()
   },
   methods: {
     //豆瓣电影top250
     getFilm() {
-      this.loading = true;
+      this.loading = true
       this.jsonp(
-        "http://api.douban.com/v2/movie/top250?start=0&count=36",
+        'http://api.douban.com/v2/movie/top250?start=0&count=36',
         {
-          method: "GET"
+          method: 'GET'
         },
         (err, data) => {
           if (err) {
-            throw new Error(err);
+            throw new Error(err)
           } else {
-            console.log(data);
-            this.dataSource = data.subjects;
-            this.title = data.title;
+            console.log(data)
+            this.dataSource = data.subjects
+            this.title = data.title
           }
-          this.loading = false;
+          this.loading = false
         }
-      );
+      )
     },
     jump(todo) {
-      window.open(todo.alt, "_blank");
+      window.open(todo.alt, '_blank')
     }
   }
-};
+}
 </script>
 <style lang="less" scoped>
 .about {

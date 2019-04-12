@@ -9,8 +9,8 @@
 
 let obj = {
   getName() {
-    console.log(this.name);
+    console.log(this.name)
   },
   name: 'test export'
-};
-export default obj;
+}
+export default obj

@@ -31,8 +31,8 @@
   </div>
 </template>
 <script>
-import draggable from "vuedraggable";
-import html2canvas from "html2canvas";
+import draggable from 'vuedraggable'
+import html2canvas from 'html2canvas'
 export default {
   components: {
     draggable
@@ -40,56 +40,56 @@ export default {
   data() {
     return {
       myArray: []
-    };
+    }
   },
   created() {
-    this.getMoive();
+    this.getMoive()
   },
   methods: {
     getMoive() {
-      fetch("https://api.apiopen.top/videoCategory", {
-        method: "GET"
+      fetch('https://api.apiopen.top/videoCategory', {
+        method: 'GET'
       })
         .then(res => {
-          return res.json();
+          return res.json()
         })
         .then(res => {
-          console.log(res);
+          console.log(res)
           if (res.code === 200) {
-            this.myArray = res.result.itemList;
+            this.myArray = res.result.itemList
           }
         })
         .catch(err => {
-          console.log(err);
-        });
+          console.log(err)
+        })
     },
     dragEnd(event) {
       //console.log(event);
       //console.log(this.myArray);
-      let arr = [];
+      let arr = []
       this.myArray.forEach(item => {
-        arr.push(item.data.description);
-      });
-      console.log(arr);
+        arr.push(item.data.description)
+      })
+      console.log(arr)
     },
     //截图
     screen() {
       /*html2canvas()中,第一个参数是要截图的Dom对象，第二个参数时渲染完成后回调的canvas对象。*/
-      html2canvas(document.getElementById("capture"), {
+      html2canvas(document.getElementById('capture'), {
         useCORS: true, //用来设置是否允许使用跨域的图片进行访问
         allowTaint: true
       })
         .then(canvas => {
-          let box = document.getElementById("movie");
-          box.appendChild(canvas);
-          console.log(canvas);
+          let box = document.getElementById('movie')
+          box.appendChild(canvas)
+          console.log(canvas)
         })
         .catch(err => {
-          console.log(err);
-        });
+          console.log(err)
+        })
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>
@@ -165,5 +165,3 @@ export default {
   }
 }
 </style>
-
-

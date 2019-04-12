@@ -4,11 +4,13 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "@chenfengyuan/vue-qrcode": "^1.0.0",
     "animejs": "^3.0.0",
+    "aplayer": "^1.10.1",
     "axios": "^0.18.0",
     "countup": "^1.8.2",
     "element-ui": "^2.4.11",
@@ -25,7 +27,12 @@
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.2.0",
+    "@vue/cli-plugin-eslint": "^3.5.1",
     "@vue/cli-service": "^3.2.0",
+    "@vue/eslint-config-prettier": "^4.0.1",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.16.0",
+    "eslint-plugin-vue": "^5.0.0",
     "less": "^3.0.4",
     "less-loader": "^4.1.0",
     "vue-template-compiler": "^2.6.10"

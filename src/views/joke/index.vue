@@ -27,56 +27,56 @@ export default {
       jokeList: [],
       obj: {},
       list: []
-    };
+    }
   },
   created() {
-    this.getJoke();
-    this.getData();
+    this.getJoke()
+    this.getData()
   },
   methods: {
     //获取随机段子
     async getJoke() {
       let res = await this.axios({
-        method: "GET",
+        method: 'GET',
         data: {
           page: 1,
           count: 10,
-          type: "video"
+          type: 'video'
         },
-        url: "https://api.apiopen.top/getJoke"
-      });
+        url: 'https://api.apiopen.top/getJoke'
+      })
       if (res.status === 200) {
-        console.log(res.data.result);
-        this.jokeList = res.data.result;
+        console.log(res.data.result)
+        this.jokeList = res.data.result
       } else {
-        console.log(res);
+        console.log(res)
       }
     },
     //随机获取一首古诗
     async getData() {
-      fetch("https://api.apiopen.top/recommendPoetry", {
-        method: "GET"
+      fetch('https://api.apiopen.top/recommendPoetry', {
+        method: 'GET'
       })
         .then(response => {
-          return response.json();
+          return response.json()
         })
         .then(res => {
-          console.log(res.result);
-          this.obj = res.result;
-          this.list = res.result.content.split("|");
+          console.log(res.result)
+          this.obj = res.result
+          this.list = res.result.content.split('|')
         })
         .catch(error => {
-          console.log(error);
+          console.log(error)
         })
         .finally(() => {
-          console.log("接口请求完成时执行，成功或失败都回执行!");
-        });
+          console.log('接口请求完成时执行，成功或失败都回执行!')
+        })
     },
     color() {
-      return "#" + ((Math.random() * 0xffffff) << 0).toString(16); // 随机颜色
+      return '#' + ((Math.random() * 0xffffff) << 0).toString(16) // 随机颜色
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>
@@ -174,4 +174,3 @@ export default {
 //   }
 // }
 </style>
-

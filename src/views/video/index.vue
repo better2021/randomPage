@@ -42,65 +42,65 @@ export default {
   data() {
     return {
       visible: false,
-      videoSrc: "",
+      videoSrc: '',
       currentIndex: 0, //当前的视频索引
       dataSource: []
-    };
+    }
   },
   created() {
-    this.getVideo();
+    this.getVideo()
   },
   mounted() {
     document.onkeydown = e => {
-      let event = e || window.event;
-      let videoPlay = this.$refs.videoPlay;
-      console.log(event.keyCode);
+      let event = e || window.event
+      let videoPlay = this.$refs.videoPlay
+      console.log(event.keyCode)
       //console.log(videoPlay.paused);
       if (event.keyCode === 32) {
         if (videoPlay.paused) {
-          videoPlay.play();
+          videoPlay.play()
         } else {
-          videoPlay.pause();
+          videoPlay.pause()
         }
       } else if (event.keyCode === 13) {
-        console.log(document.webkitIsFullScreen);
-        let element = document.documentElement;
+        console.log(document.webkitIsFullScreen)
+        let element = document.documentElement
         if (document.webkitIsFullScreen) {
-          document.webkitCancelFullScreen(); //退出全屏
+          document.webkitCancelFullScreen() //退出全屏
         } else {
           //element.webkitRequestFullScreen(); //页面进入全屏
-          videoPlay.webkitRequestFullScreen(); //视频进入全屏
+          videoPlay.webkitRequestFullScreen() //视频进入全屏
         }
       }
       videoPlay.addEventListener(
-        "ended",
+        'ended',
         function() {
-          document.webkitCancelFullScreen(); //播放完毕自动退出全屏
+          document.webkitCancelFullScreen() //播放完毕自动退出全屏
         },
         false
-      );
-    };
+      )
+    }
   },
   computed: {
     leftShow() {
       if (this.currentIndex === 1) {
-        return false;
+        return false
       } else {
-        return true;
+        return true
       }
     },
     rightShow() {
       if (this.currentIndex === this.dataSource.length - 1) {
-        return false;
+        return false
       } else {
-        return true;
+        return true
       }
     },
     picture() {
       if (this.visible) {
         if (this.dataSource[this.currentIndex].data.content) {
           return this.dataSource[this.currentIndex].data.content.data.cover
-            .detail;
+            .detail
         }
       }
     }
@@ -109,50 +109,50 @@ export default {
     //开眼视频
     async getVideo() {
       let res = await this.axios({
-        url: "https://api.apiopen.top/todayVideo",
-        method: "GET",
+        url: 'https://api.apiopen.top/todayVideo',
+        method: 'GET',
         data: {}
-      });
+      })
       if (res.status == 200) {
         //console.log(res.data.result);
-        this.dataSource = res.data.result;
+        this.dataSource = res.data.result
       } else {
-        console.log(res);
+        console.log(res)
       }
     },
     play(item, index) {
       //console.log(item.data.content.data.playUrl);
-      this.visible = true;
-      this.videoSrc = item.data.content.data.playUrl;
-      this.currentIndex = index;
+      this.visible = true
+      this.videoSrc = item.data.content.data.playUrl
+      this.currentIndex = index
     },
     close(e) {
       //console.log(e.target.className);
-      if (e.target.className === "model") {
-        this.visible = false;
-        this.$refs.videoPlay.pause(); //暂停
+      if (e.target.className === 'model') {
+        this.visible = false
+        this.$refs.videoPlay.pause() //暂停
       }
     },
     left() {
-      this.currentIndex--;
+      this.currentIndex--
       if (this.dataSource[this.currentIndex].data.content) {
         this.videoSrc = this.dataSource[
           this.currentIndex
-        ].data.content.data.playUrl;
+        ].data.content.data.playUrl
       }
       //console.log(this.videoSrc);
     },
     right() {
-      this.currentIndex++;
+      this.currentIndex++
       if (this.dataSource[this.currentIndex].data.content) {
         this.videoSrc = this.dataSource[
           this.currentIndex
-        ].data.content.data.playUrl;
+        ].data.content.data.playUrl
       }
       //console.log(this.videoSrc);
     }
   }
-};
+}
 </script>
 <style lang="less" scoped>
 #video {
@@ -160,7 +160,7 @@ export default {
   .box {
     width: 1000px;
     margin: 0 auto;
-    background: url("https://wallpaper.infinitynewtab.com/wallpaper/2679.jpg")
+    background: url('https://wallpaper.infinitynewtab.com/wallpaper/2679.jpg')
       center;
     background-size: cover;
     ul {
@@ -268,5 +268,3 @@ export default {
   }
 }
 </style>
-
-

@@ -66,38 +66,38 @@
 
 <script>
 export default {
-  name: "HelloWorld",
+  name: 'HelloWorld',
   props: {
     msg: {
       type: String,
-      default: "哈哈，子组件"
+      default: '哈哈，子组件'
     }
   },
   data() {
-    return {};
+    return {}
   },
   methods: {
     handleclick() {
-      console.log(this.$props.msg);
-      let data = { age: 23, sex: "girl" };
-      this.$emit("getVal", data); // 子组件触发父组件的getVal()事件，并传递参数data给父组件
+      console.log(this.$props.msg)
+      let data = { age: 23, sex: 'girl' }
+      this.$emit('getVal', data) // 子组件触发父组件的getVal()事件，并传递参数data给父组件
     },
     conMsg() {
-      console.log(666666);
+      console.log(666666)
     },
     send() {
-      let str = "接受到了兄弟组件传的信息了";
+      let str = '接受到了兄弟组件传的信息了'
       // this.$root.$emit("getMsg", str); //$root为根组件，可以用它实现兄弟组件之间的通信
 
-      this.$eventBus.$emit("getMsg", str);
+      this.$eventBus.$emit('getMsg', str)
       this.$store.commit({
-        type: "addNum",
+        type: 'addNum',
         number: 2
-      }); // 提交 mutation
-      this.$store.commit("getTime");
+      }) // 提交 mutation
+      this.$store.commit('getTime')
     }
   }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

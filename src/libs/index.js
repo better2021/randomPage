@@ -1,11 +1,11 @@
 /**
  * 时间格式过滤
- * @param {*} time 
+ * @param {*} time
  * time 单位为秒的时间戳
  */
 
 export function formatTime(time) {
-  if(isNaN(time)) return
+  if (isNaN(time)) return
   time = +time * 1000
   const d = new Date(time)
   const now = Date.now()
@@ -21,20 +21,27 @@ export function formatTime(time) {
   } else if (diff < 3600 * 24 * 2) {
     return '1天前'
   }
-  return (
-    `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日${d.getHours()}时${d.getMinutes()}分`
-  )
+  return `${d.getFullYear()}年${d.getMonth() +
+    1}月${d.getDate()}日${d.getHours()}时${d.getMinutes()}分`
 }
 
 /**
  * 获取星期
- * @param {*} time 
+ * @param {*} time
  * time可以为时间戳或日期格式 例如：2019/01/10
  */
 
-export function getWeekday(time){
+export function getWeekday(time) {
   const d = new Date(time)
-  const weekArr = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六']
+  const weekArr = [
+    '星期日',
+    '星期一',
+    '星期二',
+    '星期三',
+    '星期四',
+    '星期五',
+    '星期六'
+  ]
   const index = d.getDay()
   return weekArr[index]
 }
@@ -42,41 +49,41 @@ export function getWeekday(time){
 /**
  * 数组去重
  * ES6的方法
- * @param {*} arr 
+ * @param {*} arr
  */
 
-export function uniqueArr(arr){
+export function uniqueArr(arr) {
   return Array.from(new Set(arr)) // 或者[...new Set(arr)]
 }
 
 /**
  * 数组去重
- * ES5的方法 
+ * ES5的方法
  */
-export function unique(arr){
+export function unique(arr) {
   let newArr = []
-  for(let i = 0; i < arr.length; i++){
-    if(newArr.indexOf(arr[i])==-1){
+  for (let i = 0; i < arr.length; i++) {
+    if (newArr.indexOf(arr[i]) == -1) {
       newArr.push(arr[i])
     }
   }
-  return newArr;
+  return newArr
 }
 
 /**
  * 获取url的？后面的参数
- * @param {*} name 
+ * @param {*} name
  */
 
 export function getQueryString(name) {
-  const reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-  if (window.location.href.split("?")[1] != undefined) {
-    let r = window.location.href.split("?")[1].match(reg);
-    if (r == undefined && window.location.href.split("?").length > 2) {
-      r = window.location.href.split("?")[2].match(reg);
+  const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i')
+  if (window.location.href.split('?')[1] != undefined) {
+    let r = window.location.href.split('?')[1].match(reg)
+    if (r == undefined && window.location.href.split('?').length > 2) {
+      r = window.location.href.split('?')[2].match(reg)
     }
-    if (r != null) return decodeURI(r[2]);
-    return null;
+    if (r != null) return decodeURI(r[2])
+    return null
   }
 }
 
@@ -107,7 +114,7 @@ export const deepCopy = source => {
  */
 
 export function randNum(min, max) {
-  return Math.floor(min + Math.random() * ((max+1) - min));
+  return Math.floor(min + Math.random() * (max + 1 - min))
 }
 
 /**
@@ -124,7 +131,7 @@ export function replaceMoney(str) {
  * obj 类型 Number, String等 首字母大写
  */
 
-export function typeFn(obj){
+export function typeFn(obj) {
   return Object.prototype.toString.call(obj).slice(8, -1)
 }
 
@@ -134,7 +141,7 @@ export function typeFn(obj){
  */
 
 export function RandomColor() {
-  return '#' + ((Math.random() * 0xffffff) << 0).toString(16);
+  return '#' + ((Math.random() * 0xffffff) << 0).toString(16)
 }
 
 /**
@@ -142,13 +149,12 @@ export function RandomColor() {
  * 定义一个变量rate是1到5的值
  */
 
-export const star = (rate)=> "★★★★★☆☆☆☆☆".slice(5 - rate, 10 - rate);
-
+export const star = rate => '★★★★★☆☆☆☆☆'.slice(5 - rate, 10 - rate)
 
 /**
  * 时间戳转日期格式
- * @param {*} num 
- * num 为时间戳 
+ * @param {*} num
+ * num 为时间戳
  */
 export const formatDate = num => {
   let oDate = new Date(num),
@@ -158,83 +164,93 @@ export const formatDate = num => {
     oHour = oDate.getHours(),
     oMin = oDate.getMinutes(),
     oSen = oDate.getSeconds(),
-    oTime = oYear + '-' + getzf(oMonth) + '-' + getzf(oDay) + ' ' + getzf(oHour) + ':' + getzf(oMin) + ':' + getzf(oSen); //最后拼接时间
-  return oTime;
-};
+    oTime =
+      oYear +
+      '-' +
+      getzf(oMonth) +
+      '-' +
+      getzf(oDay) +
+      ' ' +
+      getzf(oHour) +
+      ':' +
+      getzf(oMin) +
+      ':' +
+      getzf(oSen) //最后拼接时间
+  return oTime
+}
 
 //补0操作
 function getzf(num) {
   if (parseInt(num) < 10) {
-    num = '0' + num;
+    num = '0' + num
   }
-  return num;
+  return num
 }
-
 
 /**
  * 带有上午，下午，晚上的时间格式
- * @param {*} obj 
+ * @param {*} obj
  * time为妙的时间戳
  */
 export const formatPayTime = obj => {
-  let time = obj;
-  if (!time) return;
-  let lastTime = new Date(time * 1000);
-  let years = lastTime.getFullYear();
-  let month = lastTime.getMonth() + 1;
-  let dates = lastTime.getDate();
-  let hours = lastTime.getHours();
-  let min = lastTime.getMinutes();
-  let second = lastTime.getSeconds();
-  let oas = '';
+  let time = obj
+  if (!time) return
+  let lastTime = new Date(time * 1000)
+  let years = lastTime.getFullYear()
+  let month = lastTime.getMonth() + 1
+  let dates = lastTime.getDate()
+  let hours = lastTime.getHours()
+  let min = lastTime.getMinutes()
+  let second = lastTime.getSeconds()
+  let oas = ''
   if (lastTime.getHours() < 12) {
-    oas = '上午';
+    oas = '上午'
   } else if (lastTime.getHours() > 12 && lastTime.getHours() <= 18) {
-    oas = '下午';
+    oas = '下午'
   } else {
-    oas = '晚上';
+    oas = '晚上'
   }
 
-  month < 10 ? (month = '0' + month) : month;
-  dates < 10 ? (dates = '0' + dates) : dates;
-  hours < 10 ? (hours = '0' + hours) : hours;
-  min < 10 ? (min = '0' + min) : min;
-  second < 10 ? (second = '0' + second) : second;
-  return `${years}/${month}/${dates} ${oas} ${hours}:${min}:${second}`;
-};
+  month < 10 ? (month = '0' + month) : month
+  dates < 10 ? (dates = '0' + dates) : dates
+  hours < 10 ? (hours = '0' + hours) : hours
+  min < 10 ? (min = '0' + min) : min
+  second < 10 ? (second = '0' + second) : second
+  return `${years}/${month}/${dates} ${oas} ${hours}:${min}:${second}`
+}
 
 /**
  * 秒转换时分秒
- * @param {*} seconds 
+ * @param {*} seconds
  * 例如将电影的总秒数转为时分秒显示
  */
 export const secondsToHMS = seconds => {
-  if (seconds < 0) return false;
-  let theTime = parseInt(seconds);
-  let theTime1 = 0;
-  let theTime2 = 0;
+  if (seconds < 0) return false
+  let theTime = parseInt(seconds)
+  let theTime1 = 0
+  let theTime2 = 0
   if (theTime >= 60) {
-    theTime1 = parseInt(theTime / 60);
-    theTime = parseInt(theTime % 60);
+    theTime1 = parseInt(theTime / 60)
+    theTime = parseInt(theTime % 60)
     if (theTime1 >= 60) {
-      theTime2 = parseInt(theTime1 / 60);
-      theTime1 = parseInt(theTime1 % 60);
+      theTime2 = parseInt(theTime1 / 60)
+      theTime1 = parseInt(theTime1 % 60)
     }
   }
-  let result = `${getzf(theTime2)}:${ getzf(theTime1)}:${getzf(theTime)}`;
-  return result;
-};
+  let result = `${getzf(theTime2)}:${getzf(theTime1)}:${getzf(theTime)}`
+  return result
+}
 
 /**
  * 设备检测
  */
 
 export const BrowserInfo = {
-    isAndroid: Boolean(navigator.userAgent.match(/android/ig)),  //检测是否为安卓设备
-    isIphone: Boolean(navigator.userAgent.match(/iphone|ipod/ig)),  //检测是否为苹果设备
-    isIpad: Boolean(navigator.userAgent.match(/ipad/ig)),  //检测是否为ipad设备
-    isWeixin: Boolean(navigator.userAgent.match(/MicroMessenger/ig))  //检测是否是微信
-  }
+  isAndroid: Boolean(navigator.userAgent.match(/android/gi)), //检测是否为安卓设备
+  isIphone: Boolean(navigator.userAgent.match(/iphone|ipod/gi)), //检测是否为苹果设备
+  isIpad: Boolean(navigator.userAgent.match(/ipad/gi)), //检测是否为ipad设备
+  isWeixin: Boolean(navigator.userAgent.match(/MicroMessenger/gi)) //检测是否是微信
+}
 
 /**
  * 容量单位转换 bytes--kb
@@ -243,36 +259,36 @@ export const BrowserInfo = {
  */
 
 export function bytesToSize(bytes) {
-  if ((bytes >> 30) & 0x3FF)
-    bytes = (bytes >>> 30) + '.' + String((bytes & (3 * 0x3FF))).substr(0, 2) + 'GB';
-  else if ((bytes >> 20) & 0x3FF)
-    bytes = (bytes >>> 20) + '.' + String(bytes & (2 * 0x3FF)).substr(0, 2) + 'MB';
-  else if ((bytes >> 10) & 0x3FF)
-    bytes = (bytes >>> 10) + '.' + String(bytes & (0x3FF)).substr(0, 2) + 'KB';
-  else if ((bytes >> 1) & 0x3FF)
-    bytes = (bytes >>> 1) + 'Bytes';
-  else
-    bytes = bytes + 'Byte';
-  return bytes;
+  if ((bytes >> 30) & 0x3ff)
+    bytes =
+      (bytes >>> 30) + '.' + String(bytes & (3 * 0x3ff)).substr(0, 2) + 'GB'
+  else if ((bytes >> 20) & 0x3ff)
+    bytes =
+      (bytes >>> 20) + '.' + String(bytes & (2 * 0x3ff)).substr(0, 2) + 'MB'
+  else if ((bytes >> 10) & 0x3ff)
+    bytes = (bytes >>> 10) + '.' + String(bytes & 0x3ff).substr(0, 2) + 'KB'
+  else if ((bytes >> 1) & 0x3ff) bytes = (bytes >>> 1) + 'Bytes'
+  else bytes = bytes + 'Byte'
+  return bytes
 }
 
 /**
  * 函数节流
- * @param {*} func 
- * @param {*} delay 
+ * @param {*} func
+ * @param {*} delay
  */
 
 export const throttle = (func, delay) => {
-  let lastCall = new Date();
+  let lastCall = new Date()
   return function(...args) {
-    const now = new Date();
+    const now = new Date()
     if (now - lastCall < delay) {
-      return;
+      return
     }
-    lastCall = now;
-    return func.apply(this, args);
-  };
-};
+    lastCall = now
+    return func.apply(this, args)
+  }
+}
 
 /**
  * Cookies读取与设置
@@ -280,17 +296,17 @@ export const throttle = (func, delay) => {
  */
 
 // import Cookies from 'js-cookie'
-export const TOKEN_KEY = 'token'
+// export const TOKEN_KEY = 'token'
 
-export const setToken = token => {
-  Cookies.set(TOKEN_KEY, token, { expires: config.cookieExpires || 1 }) // 默认cookie保存1天
-}
+// export const setToken = token => {
+//   Cookies.set(TOKEN_KEY, token, { expires: config.cookieExpires || 1 }) // 默认cookie保存1天
+// }
 
-export const getToken = () => {
-  const token = Cookies.get(TOKEN_KEY)
-  if (token) return token
-  else return false
-}
+// export const getToken = () => {
+//   const token = Cookies.get(TOKEN_KEY)
+//   if (token) return token
+//   else return false
+// }
 
 /**
  * @returns {String} 当前浏览器名称

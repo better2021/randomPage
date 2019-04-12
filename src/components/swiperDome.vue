@@ -11,8 +11,8 @@
 </template>
 
 <script>
-import { swiper, swiperSlide } from "vue-awesome-swiper";
-import "swiper/dist/css/swiper.css";
+import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import 'swiper/dist/css/swiper.css'
 export default {
   components: {
     swiper,
@@ -25,7 +25,7 @@ export default {
         spaceBetween: 30,
         loop: true,
         pagination: {
-          el: ".swiper-pagination",
+          el: '.swiper-pagination',
           clickable: true
         },
         autoplay: {
@@ -33,19 +33,19 @@ export default {
           disableOnInteraction: false
         },
         navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev"
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
         }
       }
-    };
+    }
   },
   methods: {
     //获取随机色
     color() {
-      return "#" + ((Math.random() * 0xffffff) << 0).toString(16); // 随机颜色
+      return '#' + ((Math.random() * 0xffffff) << 0).toString(16) // 随机颜色
     }
   }
-};
+}
 </script>
 <style lang="less" scoped>
 .swiperBox {
@@ -63,5 +63,3 @@ export default {
   }
 }
 </style>
-
-
