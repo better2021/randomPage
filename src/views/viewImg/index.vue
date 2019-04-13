@@ -1,6 +1,7 @@
 <template>
   <div>
-    <button class="button">Hello</button>
+    <button @click="notifyMe">桌面通知</button>
+    <button class="button" style="margin:0 10px;">Hello</button>
     <input type="file" accept="image/*" class="file">
     <button onclick="javascript:alert('hello world')" id="btn">按</button>
     <span style="color:#f00;font-size:30px">{{startVal}}</span>
@@ -118,6 +119,36 @@ export default {
     // 搜索
     handleSearch() {
       this.githubUrl = `https://ghchart.rshah.org/${this.txt}`
+    },
+
+    // 桌面通知
+    notifyMe() {
+      // 先检查浏览器是否支持
+      if (!('Notification' in window)) {
+        alert('This browser does not support desktop notification')
+      }
+
+      // 检查用户是否同意接受通知
+      else if (Notification.permission === 'granted') {
+        // If it's okay let's create a notification
+        new Notification('Hi there!', {
+          body: '这是一条桌面通知哦', // 消息主体
+          icon: 'https://i.loli.net/2019/04/13/5cb14d9ac9d9d.jpeg' // 通知时显示的图标
+        })
+      }
+
+      // 否则我们需要向用户获取权限
+      else if (Notification.permission !== 'denied') {
+        Notification.requestPermission(function(permission) {
+          // 如果用户同意，就可以向他们发送通知
+          if (permission === 'granted') {
+            new Notification('Hi there!')
+          }
+        })
+      }
+
+      // 最后，如果执行到这里，说明用户已经拒绝对相关通知进行授权
+      // 出于尊重，我们不应该再打扰他们了
     }
   }
 }
