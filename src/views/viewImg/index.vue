@@ -3,10 +3,10 @@
     <button @click="notifyMe">桌面通知</button>
     <button class="button" style="margin:0 10px;">Hello</button>
     <input type="file" accept="image/*" class="file">
-    <button onclick="javascript:alert('hello world')" id="btn">按</button>
-    <span style="color:#f00;font-size:30px">{{startVal}}</span>
+    <button id="btn" onclick="javascript:alert('hello world')">按</button>
+    <span style="color:#f00;font-size:30px">{{ startVal }}</span>
     <div>
-      <el-input placeholder="输入github的昵称就可以搜到最近提交哦" v-model="txt" clearable style="width:300px;margin-right:5px;"></el-input>
+      <el-input v-model="txt" placeholder="输入github的昵称就可以搜到最近提交哦" clearable style="width:300px;margin-right:5px;"></el-input>
       <el-button type="primary" round @click="handleSearch">搜索</el-button>
     </div>
     <div><img :src="githubUrl" /></div>
@@ -14,6 +14,32 @@
       <qrcode value="https://feiyuweb.github.io/vueApp/" :options="{ width: 200,color: { dark: '#5f9da3' } }" tag="img"></qrcode>
     </div>
     <div id="aplayer"></div>
+    <div>
+      <SubmitButton :list="dataList"/>
+      <SubmitButton>
+        <template v-slot:haha>
+          <h3 style="color:#f00">asdsff</h3>
+          <p>v-slot</p>
+          <p>使用v-slot将父组件的html传递给子组件，就像使用props给子组件传参类似</p>
+        </template>
+      </SubmitButton>
+      <SubmitButton>
+        <template v-slot:yaya>
+          <el-button
+            plain
+            @click="open"
+          >
+            可自动关闭
+          </el-button>
+          <el-button
+            plain
+            @click="open2"
+          >
+            不会自动关闭
+          </el-button>
+        </template>
+      </SubmitButton>
+    </div>
   </div>
 </template>
 
@@ -24,13 +50,16 @@ import 'aplayer/dist/APlayer.min.css'
 import APlayer from 'aplayer'
 import { songList } from './songList.js'
 
+import SubmitButton from '@/components/SubmitButton'
+
 export default {
-  components: { qrcode },
+  components: { qrcode, SubmitButton },
   data() {
     return {
       txt: 'feiyuWeb',
       githubUrl: 'https://ghchart.rshah.org/feiyuWeb',
-      startVal: ''
+      startVal: '',
+      dataList: ['one', 'two', 'three']
     }
   },
   mounted() {
@@ -52,8 +81,8 @@ export default {
     this.startVal = star(3)
 
     var button = document.querySelector('.button')
-    let file = document.querySelector('.file')
-    let btn = document.getElementById('btn')
+    const file = document.querySelector('.file')
+    const btn = document.getElementById('btn')
     let a = 1
     button.onclick = function() {
       a++
@@ -69,13 +98,13 @@ export default {
 
     file.onchange = function() {
       // 第一种方法 createObjectURL
-      let obj = this.files[0] // 获取input上传的图片数据;
+      const obj = this.files[0] // 获取input上传的图片数据;
 
       // 第二种方法
-      let read = new FileReader() // 创建FileReader对像;
+      const read = new FileReader() // 创建FileReader对像;
       read.readAsDataURL(obj) // 调用readAsDataURL方法读取文件
       read.onload = function() {
-        let img = new Image()
+        const img = new Image()
         img.src = read.result // 拿到读取结果
         img.width = 100
         img.height = 100
@@ -124,21 +153,15 @@ export default {
     // 桌面通知
     notifyMe() {
       // 先检查浏览器是否支持
-      if (!('Notification' in window)) {
+      if (!window.Notification) {
         alert('This browser does not support desktop notification')
-      }
-
-      // 检查用户是否同意接受通知
-      else if (Notification.permission === 'granted') {
+      } else if (Notification.permission === 'granted') { // 检查用户是否同意接受通知
         // If it's okay let's create a notification
         new Notification('Hi there!', {
           body: '这是一条桌面通知哦', // 消息主体
           icon: 'https://i.loli.net/2019/04/13/5cb14d9ac9d9d.jpeg' // 通知时显示的图标
         })
-      }
-
-      // 否则我们需要向用户获取权限
-      else if (Notification.permission !== 'denied') {
+      } else if (Notification.permission !== 'denied') { // 否则我们需要向用户获取权限
         Notification.requestPermission(function(permission) {
           // 如果用户同意，就可以向他们发送通知
           if (permission === 'granted') {
@@ -149,6 +172,26 @@ export default {
 
       // 最后，如果执行到这里，说明用户已经拒绝对相关通知进行授权
       // 出于尊重，我们不应该再打扰他们了
+    },
+    open() {
+      const h = this.$createElement
+
+      this.$notify({
+        title: '标题名称',
+        message: h(
+          'i',
+          { style: 'color: teal' },
+          '这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案这是提示文案'
+        )
+      })
+    },
+
+    open2() {
+      this.$notify({
+        title: '提示',
+        message: '这是一条不会自动关闭的消息',
+        duration: 0
+      })
     }
   }
 }

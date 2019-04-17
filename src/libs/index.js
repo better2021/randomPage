@@ -61,9 +61,9 @@ export function uniqueArr(arr) {
  * ES5的方法
  */
 export function unique(arr) {
-  let newArr = []
+  const newArr = []
   for (let i = 0; i < arr.length; i++) {
-    if (newArr.indexOf(arr[i]) == -1) {
+    if (newArr.indexOf(arr[i]) === -1) {
       newArr.push(arr[i])
     }
   }
@@ -77,12 +77,12 @@ export function unique(arr) {
 
 export function getQueryString(name) {
   const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i')
-  if (window.location.href.split('?')[1] != undefined) {
+  if (window.location.href.split('?')[1] !== undefined) {
     let r = window.location.href.split('?')[1].match(reg)
-    if (r == undefined && window.location.href.split('?').length > 2) {
+    if (r === undefined && window.location.href.split('?').length > 2) {
       r = window.location.href.split('?')[2].match(reg)
     }
-    if (r != null) return decodeURI(r[2])
+    if (r !== null) return decodeURI(r[2])
     return null
   }
 }
@@ -96,7 +96,7 @@ export const deepCopy = source => {
     throw new Error('error arguments', 'shallowClone')
   }
   const targetObj = source.constructor === Array ? [] : {}
-  for (let keys in source) {
+  for (const keys in source) {
     if (source.hasOwnProperty(keys)) {
       if (source[keys] && typeof source[keys] === 'object') {
         targetObj[keys] = deepCopy(source[keys])
@@ -157,14 +157,14 @@ export const star = rate => '★★★★★☆☆☆☆☆'.slice(5 - rate, 10 
  * num 为时间戳
  */
 export const formatDate = num => {
-  let oDate = new Date(num),
-    oYear = oDate.getFullYear(),
-    oMonth = oDate.getMonth() + 1,
-    oDay = oDate.getDate(),
-    oHour = oDate.getHours(),
-    oMin = oDate.getMinutes(),
-    oSen = oDate.getSeconds(),
-    oTime =
+  const oDate = new Date(num)
+  const oYear = oDate.getFullYear()
+  const oMonth = oDate.getMonth() + 1
+  const oDay = oDate.getDate()
+  const oHour = oDate.getHours()
+  const oMin = oDate.getMinutes()
+  const oSen = oDate.getSeconds()
+  const oTime =
       oYear +
       '-' +
       getzf(oMonth) +
@@ -175,11 +175,11 @@ export const formatDate = num => {
       ':' +
       getzf(oMin) +
       ':' +
-      getzf(oSen) //最后拼接时间
+      getzf(oSen) // 最后拼接时间
   return oTime
 }
 
-//补0操作
+// 补0操作
 function getzf(num) {
   if (parseInt(num) < 10) {
     num = '0' + num
@@ -193,10 +193,10 @@ function getzf(num) {
  * time为妙的时间戳
  */
 export const formatPayTime = obj => {
-  let time = obj
+  const time = obj
   if (!time) return
-  let lastTime = new Date(time * 1000)
-  let years = lastTime.getFullYear()
+  const lastTime = new Date(time * 1000)
+  const years = lastTime.getFullYear()
   let month = lastTime.getMonth() + 1
   let dates = lastTime.getDate()
   let hours = lastTime.getHours()
@@ -237,7 +237,7 @@ export const secondsToHMS = seconds => {
       theTime1 = parseInt(theTime1 % 60)
     }
   }
-  let result = `${getzf(theTime2)}:${getzf(theTime1)}:${getzf(theTime)}`
+  const result = `${getzf(theTime2)}:${getzf(theTime1)}:${getzf(theTime)}`
   return result
 }
 
@@ -246,10 +246,10 @@ export const secondsToHMS = seconds => {
  */
 
 export const BrowserInfo = {
-  isAndroid: Boolean(navigator.userAgent.match(/android/gi)), //检测是否为安卓设备
-  isIphone: Boolean(navigator.userAgent.match(/iphone|ipod/gi)), //检测是否为苹果设备
-  isIpad: Boolean(navigator.userAgent.match(/ipad/gi)), //检测是否为ipad设备
-  isWeixin: Boolean(navigator.userAgent.match(/MicroMessenger/gi)) //检测是否是微信
+  isAndroid: Boolean(navigator.userAgent.match(/android/gi)), // 检测是否为安卓设备
+  isIphone: Boolean(navigator.userAgent.match(/iphone|ipod/gi)), // 检测是否为苹果设备
+  isIpad: Boolean(navigator.userAgent.match(/ipad/gi)), // 检测是否为ipad设备
+  isWeixin: Boolean(navigator.userAgent.match(/MicroMessenger/gi)) // 检测是否是微信
 }
 
 /**
@@ -259,15 +259,13 @@ export const BrowserInfo = {
  */
 
 export function bytesToSize(bytes) {
-  if ((bytes >> 30) & 0x3ff)
+  if ((bytes >> 30) & 0x3ff) {
     bytes =
       (bytes >>> 30) + '.' + String(bytes & (3 * 0x3ff)).substr(0, 2) + 'GB'
-  else if ((bytes >> 20) & 0x3ff)
+  } else if ((bytes >> 20) & 0x3ff) {
     bytes =
       (bytes >>> 20) + '.' + String(bytes & (2 * 0x3ff)).substr(0, 2) + 'MB'
-  else if ((bytes >> 10) & 0x3ff)
-    bytes = (bytes >>> 10) + '.' + String(bytes & 0x3ff).substr(0, 2) + 'KB'
-  else if ((bytes >> 1) & 0x3ff) bytes = (bytes >>> 1) + 'Bytes'
+  } else if ((bytes >> 10) & 0x3ff) { bytes = (bytes >>> 10) + '.' + String(bytes & 0x3ff).substr(0, 2) + 'KB' } else if ((bytes >> 1) & 0x3ff) bytes = (bytes >>> 1) + 'Bytes'
   else bytes = bytes + 'Byte'
   return bytes
 }

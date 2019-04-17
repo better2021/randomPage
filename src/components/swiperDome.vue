@@ -2,10 +2,10 @@
   <!-- swiper -->
   <div class="swiperBox">
     <swiper :options="swiperOption">
-      <swiper-slide v-for="item in 8" :style="`background:${color()}`">Slide{{item}}</swiper-slide>
-      <div class="swiper-pagination" slot="pagination"></div>
-      <div class="swiper-button-prev" slot="button-prev"></div>
-      <div class="swiper-button-next" slot="button-next"></div>
+      <swiper-slide v-for="item in 8" :key="item" :style="`background:${color()}`">Slide{{ item }}</swiper-slide>
+      <div slot="pagination" class="swiper-pagination"></div>
+      <div slot="button-prev" class="swiper-button-prev"></div>
+      <div slot="button-next" class="swiper-button-next"></div>
     </swiper>
   </div>
 </template>
@@ -40,7 +40,7 @@ export default {
     }
   },
   methods: {
-    //获取随机色
+    // 获取随机色
     color() {
       return '#' + ((Math.random() * 0xffffff) << 0).toString(16) // 随机颜色
     }
