@@ -322,6 +322,30 @@ export const getExplorer = () => {
 }
 
 /**
+ *  判断是否为PC端
+ */
+export const isPC = () => {
+  // 是否为PC端
+  const userAgentInfo = navigator.userAgent
+  const Agents = [
+    'Android',
+    'iPhone',
+    'SymbianOS',
+    'Windows Phone',
+    'iPad',
+    'iPod'
+  ]
+  let flag = true
+  for (let v = 0; v < Agents.length; v++) {
+    if (userAgentInfo.indexOf(Agents[v]) > 0) {
+      flag = false
+      break
+    }
+  }
+  return flag
+}
+
+/**
  * 正式环境不出现console打印,警告等
  */
 
