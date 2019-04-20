@@ -1,6 +1,6 @@
 <template>
   <div class="hello">
-    <h1 @click="send">组件通信{{$store.state.time}}</h1>
+    <h1 @click="send">组件通信{{ $store.state.time }}</h1>
     <h1 @click="handleclick">{{ msg }}</h1>
     <p>
       For a guide and recipes on how to configure / customize this project,
@@ -79,14 +79,14 @@ export default {
   methods: {
     handleclick() {
       console.log(this.$props.msg)
-      let data = { age: 23, sex: 'girl' }
+      const data = { age: 23, sex: 'girl' }
       this.$emit('getVal', data) // 子组件触发父组件的getVal()事件，并传递参数data给父组件
     },
     conMsg() {
       console.log(666666)
     },
     send() {
-      let str = '接受到了兄弟组件传的信息了'
+      const str = '接受到了兄弟组件传的信息了'
       // this.$root.$emit("getMsg", str); //$root为根组件，可以用它实现兄弟组件之间的通信
 
       this.$eventBus.$emit('getMsg', str)

@@ -46,8 +46,8 @@ Vue.directive('drag', {
     // console.log(el, binding);
     el.onmousedown = function(e) {
       // 鼠标按下
-      let disX = e.clientX - el.offsetLeft
-      let disY = e.clientY - el.offsetTop
+      const disX = e.clientX - el.offsetLeft
+      const disY = e.clientY - el.offsetTop
 
       document.onmousemove = function(e) {
         let L = e.clientX - disX
@@ -71,6 +71,17 @@ Vue.directive('drag', {
     }
   }
 })
+
+/**
+ * 正式环境不出现console打印,警告等
+ */
+
+const isDev = /^(192\.168|localhost)/.test(window.location.host)
+if (!isDev) {
+  console.log = () => {}
+  console.info = () => {}
+  console.warn = () => {}
+}
 
 // $eventBus 和 内置的$root 是一样的
 Vue.use({

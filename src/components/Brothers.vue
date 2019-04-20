@@ -1,7 +1,7 @@
 <template>
   <div>
-    <p>{{$store.state.num}}</p>
-    <p>兄弟组件之间的通信{{message}}{{number}}</p>
+    <p>{{ $store.state.num }}</p>
+    <p>兄弟组件之间的通信{{ message }}{{ number }}</p>
   </div>
 </template>
 

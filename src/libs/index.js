@@ -324,7 +324,7 @@ export const getExplorer = () => {
 /**
  *  判断是否为PC端
  */
-export const isPC = () => {
+export const isPC = (() => {
   // 是否为PC端
   const userAgentInfo = navigator.userAgent
   const Agents = [
@@ -343,15 +343,4 @@ export const isPC = () => {
     }
   }
   return flag
-}
-
-/**
- * 正式环境不出现console打印,警告等
- */
-
-const isDev = /^(192\.168|localhost)/.test(window.location.host)
-if (!isDev) {
-  console.log = () => {}
-  console.info = () => {}
-  console.warn = () => {}
-}
+})()

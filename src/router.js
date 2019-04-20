@@ -46,6 +46,11 @@ export default new Router({
       path: '/viewImg',
       name: 'viewImg',
       component: resolve => require(['@/views/viewImg'], resolve)
+    },
+    {
+      path: '/testRender',
+      name: 'testRender',
+      component: resolve => require(['@/views/testRender'], resolve)
     }
   ]
 })

@@ -8,7 +8,8 @@
       <router-link to="/music">music</router-link>|
       <router-link to="/video">video</router-link>|
       <router-link to="/moive">movie</router-link>|
-      <router-link to="/viewImg?id=666">viewImage</router-link>
+      <router-link to="/viewImg?id=666">viewImage</router-link>|
+      <router-link to="/testRender">testRender</router-link>
     </div>
     <router-view/>
   </div>
