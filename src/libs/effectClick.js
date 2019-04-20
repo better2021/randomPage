@@ -6,7 +6,7 @@ var cH
 var cW
 var bgColor = '#FF6138'
 var animations = []
-var circles = []
+// var circles = []
 
 var colorPicker = (function() {
   var colors = ['#FF6138', '#FFBE53', '#2980B9', '#282741']
@@ -144,7 +144,7 @@ Circle.prototype.draw = function() {
   ctx.globalAlpha = 1
 }
 
-var animate = anime({
+anime({
   duration: Infinity,
   update: function() {
     ctx.fillStyle = bgColor

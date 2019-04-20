@@ -1,20 +1,20 @@
 <template>
   <div id="joke">
-    <div class="moveBox" v-drag></div>
-    <div class="greenBox" v-drag.limit></div>
+    <div v-drag class="moveBox"></div>
+    <div v-drag.limit class="greenBox"></div>
     <h2>段子与古诗</h2>
     <div class="poetry">
-      <h3>{{obj.title}}</h3>
-      <p>作者：{{obj.authors}}</p>
+      <h3>{{ obj.title }}</h3>
+      <p>作者：{{ obj.authors }}</p>
       <div>
-        <p v-for="item in list" :style="`color:${color()}`">{{item}}</p>
+        <p v-for="(item,index) in list" :key="index" :style="`color:${color()}`">{{ item }}</p>
       </div>
     </div>
     <div class="duanzi">
       <ul>
-        <li v-for="item in jokeList">
+        <li v-for="item in jokeList" :key="item.text">
           <img :src="item.header">
-          <p>{{item.text}}</p>
+          <p>{{ item.text }}</p>
         </li>
       </ul>
     </div>
@@ -34,9 +34,9 @@ export default {
     this.getData()
   },
   methods: {
-    //获取随机段子
+    // 获取随机段子
     async getJoke() {
-      let res = await this.axios({
+      const res = await this.axios({
         method: 'GET',
         data: {
           page: 1,
@@ -52,7 +52,7 @@ export default {
         console.log(res)
       }
     },
-    //随机获取一首古诗
+    // 随机获取一首古诗
     async getData() {
       fetch('https://api.apiopen.top/recommendPoetry', {
         method: 'GET'

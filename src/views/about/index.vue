@@ -1,20 +1,20 @@
 <template>
   <div
-    class="about"
     v-loading.fullscreen.lock="loading"
+    class="about"
     element-loading-text="拼命加载中"
     element-loading-background="rgba(255, 255, 255, 0.6)"
   >
     <h1>MV与豆瓣TOP30</h1>
     <div class="mvBox">
       <ul>
-        <li v-for="item in mvList">
+        <li v-for="(item,index) in mvList" :key="index">
           <img :src="item.cover">
         </li>
       </ul>
     </div>
     <div class="topFilm">
-      <h3>{{title}}</h3>
+      <h3>{{ title }}</h3>
       <ul>
         <li
           v-for="(todo,index) in dataSource"
@@ -23,8 +23,8 @@
           @click="jump(todo)"
         >
           <p>
-            <span>{{todo.title}}</span>
-            <span>{{todo.year}}</span>
+            <span>{{ todo.title }}</span>
+            <span>{{ todo.year }}</span>
           </p>
         </li>
       </ul>
@@ -32,7 +32,7 @@
   </div>
 </template>
 <script>
-import topMv from './mv.json' //本地导入的json数据
+import topMv from './mv.json' // 本地导入的json数据
 export default {
   data() {
     return {
@@ -48,7 +48,7 @@ export default {
     this.getFilm()
   },
   methods: {
-    //豆瓣电影top250
+    // 豆瓣电影top250
     getFilm() {
       this.loading = true
       this.jsonp(

@@ -1,12 +1,12 @@
 <template>
   <div
-    class="wrapper"
     v-loading.fullscreen.lock="loading"
+    class="wrapper"
     element-loading-text="拼命加载中"
     element-loading-background="rgba(255, 255, 255, 0.6)"
   >
     <h2>
-      {{dataSource.title}}
+      {{ dataSource.title }}
       （总共
       <span id="totalNum"></span>部）
     </h2>
@@ -17,15 +17,15 @@
     <ul>
       <li v-for="(item,index) in dataSource.subjects" :key="index">
         <p class="tags">
-          <span v-for="todo in item.genres" :style="`background:${color()}`" :key='todo'>{{todo}}</span>
+          <span v-for="todo in item.genres" :key="todo" :style="`background:${color()}`">{{ todo }}</span>
         </p>
         <a :href="item.alt" target="_blank">
           <img v-lazy="item.images.large">
         </a>
-        <p>{{item.title}}</p>
+        <p>{{ item.title }}</p>
       </li>
     </ul>
-    <div class="backTop" v-show="isShow" @click="backToTop"></div>
+    <div v-show="isShow" class="backTop" @click="backToTop"></div>
   </div>
 </template>
 
@@ -47,14 +47,14 @@ export default {
     this.getData()
   },
   mounted() {
-    clock() //执行时钟效果
+    clock() // 执行时钟效果
     window.addEventListener('scroll', this.handleScroll)
   },
   destroyed() {
     window.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
-    //豆瓣正在热映电影
+    // 豆瓣正在热映电影
     getData() {
       this.loading = true
       this.jsonp(
@@ -66,8 +66,8 @@ export default {
             console.log(err)
             throw new Error(err)
           } else {
-            //console.log(data);
-            let numAnim = new CountUp('totalNum', 0, data.total)
+            // console.log(data);
+            const numAnim = new CountUp('totalNum', 0, data.total)
             numAnim.start()
             this.dataSource = data
           }
@@ -78,9 +78,9 @@ export default {
       return '#' + ((Math.random() * 0xffffff) << 0).toString(16) // 随机颜色
     },
     handleScroll() {
-      let top = document.documentElement.scrollTop || document.body.scrollTop
+      const top = document.documentElement.scrollTop || document.body.scrollTop
       // console.log(top)
-      this.isShow = top > 300 ? true : false
+      this.isShow = top > 300
     },
     // 返回顶部
     backToTop() {

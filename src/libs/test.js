@@ -7,7 +7,7 @@
 
 // export { obj };
 
-let obj = {
+const obj = {
   getName() {
     console.log(this.name)
   },

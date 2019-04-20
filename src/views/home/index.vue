@@ -2,7 +2,7 @@
   <div class="home">
     <img alt="Vue logo" src="../../assets/logo.png">
     <Brothers></Brothers>
-    <HelloWorld msg="Welcome to Your Vue.js App" ref="hello" @getVal="getObj"/>
+    <HelloWorld ref="hello" msg="Welcome to Your Vue.js App" @getVal="getObj"/>
   </div>
 </template>
 
@@ -14,7 +14,7 @@ import Brothers from '@/components/Brothers.vue'
 import app from '../../libs/test.js'
 
 export default {
-  name: 'home',
+  name: 'Home',
   components: {
     HelloWorld,
     Brothers

@@ -9,10 +9,10 @@ export default new Vuex.Store({
     time: new Date().getTime()
   },
   mutations: {
-    ['addNum'](state, payload) {
+    'addNum'(state, payload) {
       state.num += payload.number
     },
-    ['getTime'](state, payload) {
+    'getTime'(state, payload) {
       state.time = new Date().toLocaleTimeString()
     }
   },

@@ -15,7 +15,7 @@
   </div>
 </template>
 <script>
-import countUp from 'countup'
+import CountUp from 'countup'
 import SwiperDome from '@/components/swiperDome'
 import { Photoshop, Chrome, Sketch } from 'vue-color'
 
@@ -44,14 +44,14 @@ export default {
     this.getMusic()
   },
   mounted() {
-    //参数说明：‘one’=>绑定的id名；0=>起始值；12345=>结束值;0=>小数位数；3=>延时秒数
-    let numAnim = new countUp('one', 0, 12345, 0, 3)
-    let numdemo = new countUp('two', 0, 3650.25, 2)
+    // 参数说明：‘one’=>绑定的id名；0=>起始值；12345=>结束值;0=>小数位数；3=>延时秒数
+    const numAnim = new CountUp('one', 0, 12345, 0, 3)
+    const numdemo = new CountUp('two', 0, 3650.25, 2)
     numAnim.start()
     numdemo.start()
   },
   methods: {
-    //获取音乐排行榜
+    // 获取音乐排行榜
     getMusic() {
       this.axios({
         method: 'GET',
@@ -72,7 +72,7 @@ export default {
           console.log('接口请求完成时执行，成功或失败都回执行!')
         })
     },
-    //选择的颜色
+    // 选择的颜色
     updateValue() {
       console.log(this.colors)
     }
