@@ -105,7 +105,7 @@ export default {
         width: 200px;
         height: 300px;
         margin: 10px 20px;
-        transition: all 0.5s;
+        transition: all 500ms cubic-bezier(0.34, 1.61, 0.7, 1);
         img {
           width: 100%;
         }

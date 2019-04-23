@@ -6,7 +6,6 @@
 
 <script>
 import loadFile from '@/libs/test.js'
-import { stat } from 'fs'
 export default {
   data() {
     return {

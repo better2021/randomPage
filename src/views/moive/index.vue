@@ -119,8 +119,38 @@ export default {
       height: 200px;
       border-radius: 100%;
       overflow: hidden;
+      position: relative;
+       &::after{
+          position: absolute;
+          left: -100%;              /*改变left的值，让其相对box影藏*/
+          top: 0;
+          width: 30%;
+          height: 100%;
+          content: "";
+          /* Safari 5.1 - 6.0 */
+          background: -webkit-linear-gradient(left,rgba(255,255,255,0) 0,rgba(255,255,255,.3) 50%,rgba(255,255,255,0) 100%);
+          /* Opera 11.1 - 12.0 */
+          background: -o-linear-gradient(left,rgba(255,255,255,0) 0,rgba(255,255,255,.3) 50%,rgba(255,255,255,0) 100%);
+          /* Firefox 3.6 - 15 */
+          background: -moz-linear-gradient(left,rgba(255,255,255,0) 0,rgba(255,255,255,.3) 50%,rgba(255,255,255,0) 100%);
+          /* 标准的语法 */
+          background: linear-gradient(to right,rgba(255,255,255,0) 0,rgba(255,255,255,.3) 50%,rgba(255,255,255,0) 100%);
+          transform: skewX(-45deg);
+        }
+        &:hover{
+          box-shadow: 3px 3px 5px #999999;
+        }
+        &:hover::after{
+          left: 180%;
+          transition: 0.8s ease-in-out;
+        }
+
       img {
         width: 100%;
+        transition: all 0.5s;
+        &:hover{
+          transform: scale(1.1)
+        }
       }
     }
     p {
