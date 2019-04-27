@@ -19,14 +19,16 @@ export default {
         'https://cdn.pixabay.com/photo/2014/08/26/15/17/tuscany-428041_1280.jpg',
         'https://cdn.pixabay.com/photo/2015/04/23/21/59/tree-736875_1280.jpg',
         'https://cdn.pixabay.com/photo/2016/09/05/21/37/cat-1647775_1280.jpg',
-        'https://cdn.pixabay.com/photo/2019/04/20/08/42/genoa-4141143_1280.jpg'],
+        'https://cdn.pixabay.com/photo/2019/04/20/08/42/genoa-4141143_1280.jpg',
+        'https://cdn.pixabay.com/photo/2017/08/31/17/50/fantasy-2701633_1280.jpg',
+        'https://cdn.pixabay.com/photo/2015/11/16/22/39/balloon-1046658_1280.jpg'],
       imgUrl: ''
     }
   },
   mounted() {
     document.title = '躁动的小球'
     console.log(Circle)
-    this.imgUrl = this.list[randNum(1, 8) - 1]
+    this.imgUrl = this.list[randNum(1, 10) - 1]
     for (var i = 0; i < 50; i++) {
       // 这些函数里面涉及原型，通过 Circle()函数可以找到指向draw,run函数。
       var c = new Circle()
@@ -36,13 +38,13 @@ export default {
   },
   methods: {
     changePic() {
-      console.log(randNum(1, 8))
-      const num = randNum(1, 8) - 1
+      console.log(randNum(1, 10))
+      const num = randNum(1, 10) - 1
       this.isActive = true
       this.imgUrl = this.list[num]
       setTimeout(() => {
         this.isActive = false
-      }, 1000)
+      }, 600)
     }
   }
 }
@@ -71,9 +73,6 @@ export default {
     background: url('https://i.loli.net/2019/04/27/5cc43bec7c088.png') no-repeat;
     background-size:cover;
     transition: all 0.6s ease-in-out;
-    &:hover{
-      transform: scale(1.2);
-    }
   }
   .active{
       transform: rotate(540deg);
