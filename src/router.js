@@ -51,6 +51,11 @@ export default new Router({
       path: '/testRender',
       name: 'testRender',
       component: resolve => require(['@/views/testRender'], resolve)
+    },
+    {
+      path: '/ball',
+      name: 'ball',
+      component: resolve => require(['@/views/ball'], resolve)
     }
   ]
 })
