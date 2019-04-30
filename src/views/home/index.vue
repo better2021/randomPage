@@ -10,8 +10,6 @@
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
 import Brothers from '@/components/Brothers.vue'
-// import { obj as app } from "../../libs/test.js";
-import app from '../../libs/test.js'
 
 export default {
   name: 'Home',
@@ -20,7 +18,6 @@ export default {
     Brothers
   },
   mounted() {
-    app.getName()
     this.$refs.hello.conMsg() // 父组件调用子组件的方法
   },
   methods: {

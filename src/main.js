@@ -90,6 +90,13 @@ Vue.use({
   }
 })
 
+// 全局挂载在vue实例上，每个组件挂载（mounted）的时候都会执行mixin中的语句
+// Vue.mixin({
+//   mounted() {
+//     console.log('这是是mixin打印的哦')
+//   }
+// })
+
 new Vue({
   router,
   store,

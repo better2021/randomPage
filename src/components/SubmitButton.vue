@@ -1,5 +1,5 @@
 <template>
-  <div class="slot-demo">
+  <div class="slot-demo" style="border:1px #f00 solid">
     <slot name="haha">
       <ul>
         <li v-for="(item,index) in list" :key="index" @click="handleClick(item)">
@@ -11,6 +11,7 @@
       </ul>
     </slot>
     <slot name="yaya">
+      <h3>yaya</h3>
     </slot>
   </div>
 </template>

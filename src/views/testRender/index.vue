@@ -1,17 +1,29 @@
 <template>
   <div>
     <div id="SomeElementYouWantToAnimate"></div>
+    <button @click="showTime">mixin测试</button>
+    <button @click="handleTime">mixin1</button>
+    <keep-alive>
+      <selectCity></selectCity>
+    </keep-alive>
   </div>
 </template>
 
 <script>
+import selectCity from '@/components/selectCity'
 import loadFile from '@/libs/test.js'
+import { mymixin, mixin1 } from './mixinTest.js'
 export default {
+  components: { selectCity },
+  mixins: [mymixin, mixin1],
   data() {
     return {
+      txt: '这是vue的render函数渲染出来的'
     }
   },
   mounted() {
+    console.log(this.txt, '-----')
+    console.log(this.test, '+++++')
     var start = null
     var element = document.getElementById('SomeElementYouWantToAnimate')
     element.style.position = 'absolute'
@@ -19,7 +31,7 @@ export default {
     function step(timestamp) {
       if (!start) start = timestamp
       var progress = timestamp - start
-      element.style.left = Math.min(progress / 10, 500) + 'px'
+      element.style.left = Math.min(progress / 10, 300) + 'px'
       if (progress < 20000) {
         window.requestAnimationFrame(step)
       }
@@ -36,8 +48,10 @@ export default {
     ]
     loadFile(listUrl)
   },
-  render(h) {
-    return (<p></p>)
+  methods: {
+    handleTime() {
+      console.log(this.time)
+    }
   }
 }
 </script>
