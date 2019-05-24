@@ -1,6 +1,12 @@
 <template>
-  <div id="ball" :style="{backgroundImage:`url(${imgUrl})`}">
-    <span class="btn" :class="{active:isActive}" @click="changePic"></span>
+  <div
+    v-loading.fullscreen.lock="loading"
+    element-loading-text="拼命加载中"
+    element-loading-background="rgba(255, 255, 255, 0.6)"
+  >
+    <div id="ball" :style="{backgroundImage:`url(${imgUrl})`}">
+      <span class="btn" :class="{active:isActive}" @click="changePic"></span>
+    </div>
   </div>
 </template>
 
@@ -12,7 +18,9 @@ export default {
   data() {
     return {
       isActive: false,
-      list: ['https://cdn.pixabay.com/photo/2018/04/06/00/25/nature-3294681_960_720.jpg',
+      loading: false,
+      list: [
+        'https://cdn.pixabay.com/photo/2018/04/06/00/25/nature-3294681_960_720.jpg',
         'https://cdn.pixabay.com/photo/2015/06/19/20/13/sunset-815270_960_720.jpg',
         'https://cdn.pixabay.com/photo/2014/12/16/22/25/youth-570881_1280.jpg',
         'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885_960_720.jpg',
@@ -21,7 +29,8 @@ export default {
         'https://cdn.pixabay.com/photo/2016/09/05/21/37/cat-1647775_1280.jpg',
         'https://cdn.pixabay.com/photo/2019/04/20/08/42/genoa-4141143_1280.jpg',
         'https://cdn.pixabay.com/photo/2017/08/31/17/50/fantasy-2701633_1280.jpg',
-        'https://cdn.pixabay.com/photo/2015/11/16/22/39/balloon-1046658_1280.jpg'],
+        'https://cdn.pixabay.com/photo/2015/11/16/22/39/balloon-1046658_1280.jpg'
+      ],
       imgUrl: ''
     }
   },
@@ -42,8 +51,10 @@ export default {
       const num = randNum(1, 10) - 1
       this.isActive = true
       this.imgUrl = this.list[num]
+      this.loading = true
       setTimeout(() => {
         this.isActive = false
+        this.loading = false
       }, 600)
     }
   }
@@ -51,18 +62,18 @@ export default {
 </script>
 
 <style lang="less" scoped>
-#ball{
-    width: 100vw;
-    height: 700px;
-    background-size: cover;
-    position: relative;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-    /deep/div{
-      border-radius: 50%;
-      position: absolute;
+#ball {
+  width: 100vw;
+  height: 700px;
+  background-size: cover;
+  position: relative;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  /deep/div {
+    border-radius: 50%;
+    position: absolute;
   }
-  .btn{
+  .btn {
     display: inline-block;
     position: fixed;
     right: 20px;
@@ -71,11 +82,11 @@ export default {
     width: 50px;
     height: 50px;
     background: url('https://i.loli.net/2019/04/27/5cc43bec7c088.png') no-repeat;
-    background-size:cover;
+    background-size: cover;
     transition: all 0.6s ease-in-out;
   }
-  .active{
-      transform: rotate(540deg);
-    }
+  .active {
+    transform: rotate(540deg);
+  }
 }
 </style>

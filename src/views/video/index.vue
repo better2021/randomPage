@@ -1,5 +1,10 @@
 <template>
-  <div id="video">
+  <div
+    id="video"
+    v-loading.fullscreen.lock="loading"
+    element-loading-text="拼命加载中"
+    element-loading-background="rgba(255, 255, 255, 0.6)"
+  >
     <div class="box">
       <ul>
         <li
@@ -17,14 +22,7 @@
     </div>
     <div v-show="visible" class="model" @click="close($event)">
       <div class="player">
-        <video
-          ref="videoPlay"
-          controls
-          preload
-          autoplay
-          :src="videoSrc"
-          color="#000000"
-        ></video>
+        <video ref="videoPlay" controls preload autoplay :src="videoSrc" color="#000000"></video>
         <span v-show="leftShow" class="left" @click="left">
           <img src="../../assets/img/left.png">
         </span>
@@ -42,7 +40,8 @@ export default {
       visible: false,
       videoSrc: '',
       currentIndex: 0, // 当前的视频索引
-      dataSource: []
+      dataSource: [],
+      loading: false
     }
   },
   computed: {
@@ -98,14 +97,18 @@ export default {
   methods: {
     // 开眼视频
     async getVideo() {
+      this.loading = true
       const res = await this.axios({
         url: 'https://api.apiopen.top/todayVideo',
         method: 'GET',
         data: {}
       })
+      this.loading = false
       if (res.status === 200) {
         // console.log(res.data.result);
-        this.dataSource = res.data.result.filter(item => item.type === 'followCard')
+        this.dataSource = res.data.result.filter(
+          item => item.type === 'followCard'
+        )
       } else {
         console.log(res)
       }

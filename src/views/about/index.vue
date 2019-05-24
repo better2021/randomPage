@@ -33,6 +33,7 @@
 </template>
 <script>
 import topMv from './mv.json' // 本地导入的json数据
+import { setTimeout } from 'timers'
 export default {
   data() {
     return {
@@ -67,6 +68,9 @@ export default {
           this.loading = false
         }
       )
+      setTimeout(() => {
+        this.loading = false
+      }, 2000)
     },
     jump(todo) {
       window.open(todo.alt, '_blank')

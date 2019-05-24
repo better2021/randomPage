@@ -9,7 +9,7 @@ import NProgress from 'nprogress'
 import VueLazyload from 'vue-lazyload'
 
 import 'element-ui/lib/theme-chalk/index.css'
-import 'nprogress/nprogress.css'
+import 'nprogress/nprogress.css' // 这个样式必须引入
 
 // import './libs/effectClick'; // 鼠标点击背景变色效果
 
@@ -28,14 +28,15 @@ Vue.use(VueLazyload, {
   attempt: 1
 })
 
+NProgress.configure({ easing: 'ease', speed: 500, showSpinner: true })
+
 router.beforeEach((to, from, next) => {
   NProgress.start(to, from, next)
-  setTimeout(() => next(), 300)
+  next()
 })
 
 router.afterEach(transition => {
   NProgress.done()
-  NProgress.remove()
 })
 
 // 创建自定义指令

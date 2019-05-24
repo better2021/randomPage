@@ -73,6 +73,10 @@ export default {
           }
         }
       )
+      setTimeout(() => {
+        // 接口出错时就2秒后让加载效果自动消失
+        this.loading = false
+      }, 2000)
     },
     color() {
       return '#' + ((Math.random() * 0xffffff) << 0).toString(16) // 随机颜色
