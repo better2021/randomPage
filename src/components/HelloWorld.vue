@@ -11,34 +11,7 @@
         rel="noopener"
       >vue-cli documentation</a>.
     </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel"
-          target="_blank"
-          rel="noopener"
-        >babel</a>
-      </li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li>
-        <a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a>
-      </li>
-      <li>
-        <a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a>
-      </li>
-      <li>
-        <a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a>
-      </li>
-      <li>
-        <a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a>
-      </li>
-    </ul>
+
     <h3>Ecosystem</h3>
     <ul>
       <li>
@@ -83,7 +56,7 @@ export default {
       this.$emit('getVal', data) // 子组件触发父组件的getVal()事件，并传递参数data给父组件
     },
     conMsg() {
-      console.log(666666)
+      console.log('子组件的方法')
     },
     send() {
       const str = '接受到了兄弟组件传的信息了'

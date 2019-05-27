@@ -12,11 +12,11 @@ module.exports = {
       // 为生产环境修改配置...
     } else {
       // 为开发环境修改配置...
-      console.log(config)
+      // console.log(config)
     }
   },
   devServer: {
-    open: true, //自动打开浏览器
-    port: 8081 //端口
+    open: true, // 自动打开浏览器
+    port: 8081 // 端口
   }
 }

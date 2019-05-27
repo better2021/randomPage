@@ -57,7 +57,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-#SomeElementYouWantToAnimate{
+#SomeElementYouWantToAnimate {
   width: 100px;
   height: 100px;
   background: pink;

@@ -36,7 +36,7 @@ export default {
   },
   mounted() {
     document.title = '躁动的小球'
-    console.log(Circle)
+    // console.log(Circle)
     this.imgUrl = this.list[randNum(1, 10) - 1]
     for (var i = 0; i < 50; i++) {
       // 这些函数里面涉及原型，通过 Circle()函数可以找到指向draw,run函数。
