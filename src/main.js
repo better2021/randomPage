@@ -9,7 +9,7 @@ import NProgress from 'nprogress'
 import VueLazyload from 'vue-lazyload'
 
 import 'element-ui/lib/theme-chalk/index.css'
-import 'nprogress/nprogress.css' // 这个样式必须引入
+import 'nprogress/nprogress.css'
 
 // import './libs/effectClick'; // 鼠标点击背景变色效果
 
@@ -21,6 +21,7 @@ Vue.prototype.axios = axios
 Vue.prototype.jsonp = jsonp
 
 Vue.use(ElementUI)
+
 Vue.use(VueLazyload, {
   preLoad: 1.3,
   error: 'http://bpic.588ku.com/element_pic/00/16/09/0957d2353800e6e.jpg',
