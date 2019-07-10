@@ -170,6 +170,7 @@ export default {
     handleCreate() {
       this.dialogVisible = true
       this.type = 'create'
+      this.fromData = { ...initFromData }
       this.$nextTick(() => {
         this.$refs['ruleForm'].clearValidate()
       })
@@ -180,6 +181,9 @@ export default {
       this.dialogVisible = true
       this.type = 'edit'
       this.fromData = { ...row, id: row._id }
+      this.$nextTick(() => {
+        this.$refs['ruleForm'].clearValidate()
+      })
     },
     // 删除
     handleDelete(index, row) {
