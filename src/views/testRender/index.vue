@@ -148,7 +148,7 @@ export default {
     async getData() {
       this.loading = true
       const res = await this.axios({
-        url: 'http://192.168.50.79:5000/api/users/list',
+        url: 'http://localhost:5000/api/users/list',
         method: 'GET'
       })
       this.loading = false
@@ -168,7 +168,7 @@ export default {
       this.$refs['ruleForm'].validate(async valid => {
         if (!valid) return
         const res = await this.axios({
-          url: 'http://192.168.50.79:5000/api/users/register',
+          url: 'http://localhost:5000/api/users/register',
           method: 'POST',
           data: this.fromData
         })
