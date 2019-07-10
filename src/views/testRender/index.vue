@@ -27,9 +27,15 @@
             <span>{{ scope.row.date.substring(0,10) }}</span>
           </template>
         </el-table-column>
+        <el-table-column label="操作" min-width="180">
+          <template slot-scope="scope">
+            <el-button type="primary" size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+            <el-button type="danger" size="mini" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+          </template>
+        </el-table-column>
       </el-table>
     </div>
-    <el-dialog title="用户注册" :visible.sync="dialogVisible" width="600px">
+    <el-dialog :title="type==='create'?'用户注册':'编辑信息'" :visible.sync="dialogVisible" width="600px">
       <el-form ref="ruleForm" :model="fromData" :rules="rules" label-width="80px">
         <el-form-item label="用户名称" prop="name">
           <el-input v-model="fromData.name" placeholder="请输入用户名称"></el-input>
@@ -37,12 +43,14 @@
         <el-form-item label="邮箱地址" prop="email">
           <el-input v-model="fromData.email" placeholder="请输入邮箱地址"></el-input>
         </el-form-item>
-        <el-form-item label="您的密码" prop="password">
-          <el-input v-model="fromData.password" placeholder="请输入密码"></el-input>
-        </el-form-item>
-        <el-form-item label="确认密码" prop="password2">
-          <el-input v-model="fromData.password2" placeholder="请再次输入密码"></el-input>
-        </el-form-item>
+        <template v-if="type==='create'">
+          <el-form-item label="您的密码" prop="password">
+            <el-input v-model="fromData.password" placeholder="请输入密码"></el-input>
+          </el-form-item>
+          <el-form-item label="确认密码" prop="password2">
+            <el-input v-model="fromData.password2" placeholder="请再次输入密码"></el-input>
+          </el-form-item>
+        </template>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="dialogVisible = false">取 消</el-button>
@@ -91,6 +99,7 @@ export default {
       dialogVisible: false,
       fromData: { ...initFromData },
       loading: false,
+      type: '',
       rules: {
         name: [
           { required: true, message: '请输入活动名称', trigger: 'blur' },
@@ -157,27 +166,81 @@ export default {
       }
       console.log(res, '---')
     },
+    // 注册
     handleCreate() {
       this.dialogVisible = true
+      this.type = 'create'
       this.$nextTick(() => {
         this.$refs['ruleForm'].clearValidate()
       })
+    },
+    // 编辑
+    handleEdit(index, row) {
+      console.log(index, row)
+      this.dialogVisible = true
+      this.type = 'edit'
+      this.fromData = { ...row, id: row._id }
+    },
+    // 删除
+    handleDelete(index, row) {
+      this.$confirm('此操作将永久删除该选项, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      })
+        .then(async() => {
+          const res = await this.axios({
+            url: 'http://localhost:5000/api/users/delete',
+            method: 'delete',
+            data: {
+              id: row._id
+            }
+          })
+          if (res.status !== 200) {
+            return this.$message.error(res.msg || '删除失败')
+          }
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          })
+          this.getData()
+        })
+        .catch(() => {
+          console.log('取消删除')
+        })
     },
     // 确认
     handleSure() {
       this.$refs['ruleForm'].validate(async valid => {
         if (!valid) return
-        const res = await this.axios({
-          url: 'http://localhost:5000/api/users/register',
-          method: 'POST',
-          data: this.fromData
-        })
+        let res
+        if (this.type === 'create') {
+          res = await this.axios({
+            url: 'http://localhost:5000/api/users/register',
+            method: 'POST',
+            data: this.fromData
+          })
+        } else {
+          res = await this.axios({
+            url: 'http://localhost:5000/api/users/update',
+            method: 'PUT',
+            data: {
+              name: this.fromData.name,
+              email: this.fromData.email,
+              id: this.fromData.id
+            }
+          })
+        }
+
         if (res.status === 200) {
-          this.tableData = res.data
+          this.dialogVisible = false
+          this.getData()
         }
         console.log(res)
-        this.dialogVisible = false
-        this.getData()
+        this.$message({
+          type: 'success',
+          message: this.type === 'create' ? '创建成功' : '更新成功'
+        })
       })
     },
     handleTime() {
