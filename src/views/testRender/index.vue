@@ -35,7 +35,7 @@
         </el-table-column>
       </el-table>
     </div>
-    <el-dialog :title="type==='create'?'用户注册':'编辑信息'" :visible.sync="dialogVisible" width="600px">
+    <el-dialog :title="type==='create'?'用户注册':'编辑信息'" :visible.sync="dialogVisible" width="500px">
       <el-form ref="ruleForm" :model="fromData" :rules="rules" label-width="80px">
         <el-form-item label="用户名称" prop="name">
           <el-input v-model="fromData.name" placeholder="请输入用户名称"></el-input>
@@ -45,10 +45,10 @@
         </el-form-item>
         <template v-if="type==='create'">
           <el-form-item label="您的密码" prop="password">
-            <el-input v-model="fromData.password" placeholder="请输入密码"></el-input>
+            <el-input v-model="fromData.password" placeholder="请输入密码" show-password></el-input>
           </el-form-item>
           <el-form-item label="确认密码" prop="password2">
-            <el-input v-model="fromData.password2" placeholder="请再次输入密码"></el-input>
+            <el-input v-model="fromData.password2" placeholder="请再次输入密码" show-password></el-input>
           </el-form-item>
         </template>
       </el-form>
@@ -113,9 +113,23 @@ export default {
             message: '请输入正确的邮箱地址'
           }
         ],
-        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+        password: [
+          { required: true, message: '请输入密码', trigger: 'blur' },
+          {
+            min: 6,
+            max: 20,
+            message: '密码的长度不能小于6位，且不能超过20位',
+            trigger: 'blur'
+          }
+        ],
         password2: [
-          { required: true, message: '输入的密码不一致', trigger: 'blur' }
+          { required: true, message: '输入的密码不一致', trigger: 'blur' },
+          {
+            min: 6,
+            max: 20,
+            message: '密码的长度不能小于6位，且不能超过20位',
+            trigger: 'blur'
+          }
         ]
       }
     }
@@ -161,10 +175,11 @@ export default {
         method: 'GET'
       })
       this.loading = false
-      if (res.status === 200) {
-        this.tableData = res.data
-      }
       console.log(res, '---')
+      if (res.status !== 200) {
+        return this.$message.error(res.data.msg || '删除失败')
+      }
+      this.tableData = res.data
     },
     // 注册
     handleCreate() {
@@ -201,7 +216,7 @@ export default {
             }
           })
           if (res.status !== 200) {
-            return this.$message.error(res.msg || '删除失败')
+            return this.$message.error(res.data.msg || '删除失败')
           }
           this.$message({
             type: 'success',
@@ -236,11 +251,16 @@ export default {
           })
         }
 
-        if (res.status === 200) {
-          this.dialogVisible = false
-          this.getData()
+        if (res.status !== 200) {
+          this.$message = {
+            type: 'error',
+            message: res.data.msg
+          }
+          return false
         }
-        console.log(res)
+        this.dialogVisible = false
+        this.getData()
+
         this.$message({
           type: 'success',
           message: this.type === 'create' ? '创建成功' : '更新成功'
