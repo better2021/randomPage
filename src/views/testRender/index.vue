@@ -7,6 +7,13 @@
       <selectCity></selectCity>
     </keep-alive>
     <p>{{ stringTest }}</p>
+    <div style="width:500px;margin:20px auto">
+      <el-input v-model="keyWord" placeholder="请输入您要搜索的关键字" style="width:300px;margin-right:10px"></el-input>
+      <el-button type="primary" @click="handleSearch">
+        搜索
+        <i class="el-icon-search el-icon--left"></i>
+      </el-button>
+    </div>
 
     <el-button type="primary" @click="handleCreate">
       注册用户
@@ -100,6 +107,7 @@ export default {
       fromData: { ...initFromData },
       loading: false,
       type: '',
+      keyWord: '',
       rules: {
         name: [
           { required: true, message: '请输入活动名称', trigger: 'blur' },
@@ -172,7 +180,8 @@ export default {
       this.loading = true
       const res = await this.axios({
         url: 'http://localhost:5000/api/users/list',
-        method: 'GET'
+        method: 'GET',
+        params: { name: this.keyWord }
       })
       this.loading = false
       console.log(res, '---')
@@ -180,6 +189,10 @@ export default {
         return this.$message.error(res.data.msg || '删除失败')
       }
       this.tableData = res.data
+    },
+    //  搜索
+    handleSearch() {
+      this.getData()
     },
     // 注册
     handleCreate() {
