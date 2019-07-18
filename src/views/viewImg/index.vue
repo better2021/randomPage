@@ -2,20 +2,31 @@
   <div>
     <button @click="notifyMe">桌面通知</button>
     <button class="button" style="margin:0 10px;">Hello</button>
-    <input type="file" accept="image/*" class="file">
+    <input type="file" accept="image/*" class="file" />
     <button id="btn" onclick="javascript:alert('hello world')">按</button>
     <span style="color:#f00;font-size:30px">{{ startVal }}</span>
     <div>
-      <el-input v-model="txt" placeholder="输入github的昵称就可以搜到最近提交哦" clearable style="width:300px;margin-right:5px;"></el-input>
+      <el-input
+        v-model="txt"
+        placeholder="输入github的昵称就可以搜到最近提交哦"
+        clearable
+        style="width:300px;margin-right:5px;"
+      ></el-input>
       <el-button type="primary" round @click="handleSearch">搜索</el-button>
     </div>
-    <div><img :src="githubUrl" /></div>
     <div>
-      <qrcode value="https://feiyuweb.github.io/vueApp/" :options="{ width: 200,color: { dark: '#5f9da3' } }" tag="img"></qrcode>
+      <img :src="githubUrl" />
+    </div>
+    <div>
+      <qrcode
+        value="https://feiyuweb.github.io/vueApp/"
+        :options="{ width: 200,color: { dark: '#5f9da3' } }"
+        tag="img"
+      ></qrcode>
     </div>
     <div id="aplayer"></div>
     <div>
-      <SubmitButton :list="dataList"/>
+      <SubmitButton :list="dataList" />
       <SubmitButton>
         <template v-slot:haha>
           <h3 style="color:#f00">asdsff</h3>
@@ -25,20 +36,29 @@
       </SubmitButton>
       <SubmitButton>
         <template v-slot:yaya>
-          <el-button
-            plain
-            @click="open"
-          >
-            可自动关闭
-          </el-button>
-          <el-button
-            plain
-            @click="open2"
-          >
-            不会自动关闭
-          </el-button>
+          <el-button plain @click="open">可自动关闭</el-button>
+          <el-button plain @click="open2">不会自动关闭</el-button>
         </template>
       </SubmitButton>
+      <div v-loading="loading" style="width:1000px;margin:0 auto">
+        <el-table :data="tableData" stripe style="width: 100%">
+          <el-table-column prop="userName" label="用户名" min-width="180"></el-table-column>
+          <el-table-column prop="email" label="邮箱" min-width="180"></el-table-column>
+          <el-table-column prop="tel" label="手机号" min-width="180"></el-table-column>
+          <el-table-column prop="address" label="地址" min-width="180"></el-table-column>
+          <el-table-column prop="createTime" label="日期" width="180">
+            <template slot-scope="scope">
+              <span>{{ scope.row.createTime&&scope.row.createTime.substring(0,10) }}</span>
+            </template>
+          </el-table-column>
+          <el-table-column label="操作" min-width="180">
+            <template slot-scope="scope">
+              <!-- <el-button type="primary" size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button> -->
+              <el-button type="danger" size="mini" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </div>
     </div>
   </div>
 </template>
@@ -59,8 +79,13 @@ export default {
       txt: 'feiyuWeb',
       githubUrl: 'https://ghchart.rshah.org/feiyuWeb',
       startVal: '',
-      dataList: ['one', 'two', 'three']
+      dataList: ['one', 'two', 'three'],
+      loading: false,
+      tableData: []
     }
+  },
+  created() {
+    this.getDate()
   },
   mounted() {
     const options = {
@@ -155,13 +180,15 @@ export default {
       // 先检查浏览器是否支持
       if (!window.Notification) {
         alert('This browser does not support desktop notification')
-      } else if (Notification.permission === 'granted') { // 检查用户是否同意接受通知
+      } else if (Notification.permission === 'granted') {
+        // 检查用户是否同意接受通知
         // If it's okay let's create a notification
         new Notification('Hi there!', {
           body: '这是一条桌面通知哦', // 消息主体
           icon: 'https://i.loli.net/2019/04/13/5cb14d9ac9d9d.jpeg' // 通知时显示的图标
         })
-      } else if (Notification.permission !== 'denied') { // 否则我们需要向用户获取权限
+      } else if (Notification.permission !== 'denied') {
+        // 否则我们需要向用户获取权限
         Notification.requestPermission(function(permission) {
           // 如果用户同意，就可以向他们发送通知
           if (permission === 'granted') {
@@ -192,6 +219,35 @@ export default {
         message: '这是一条不会自动关闭的消息',
         duration: 0
       })
+    },
+    // 获取列表数据
+    async getDate() {
+      this.loading = true
+      const res = await this.axios({
+        url: 'http://localhost:3000/sqlApi/user/list',
+        method: 'GET'
+      })
+      this.loading = false
+      if (res.status !== 200) {
+        return this.$message.error(res.data.msg || '删除失败')
+      }
+      console.log(res)
+      this.tableData = res.data.list
+    },
+    // 删除
+    async handleDelete(index, row) {
+      console.log(index, row)
+      const res = await this.axios({
+        url: 'http://localhost:3000/sqlApi/user/delete',
+        method: 'DELETE',
+        data: { id: row.id }
+      })
+      console.log(res)
+      if (res.status !== 200) {
+        return this.$message.error(res.data.msg || '删除失败')
+      }
+      this.$message.success('删除成功')
+      this.getDate()
     }
   }
 }

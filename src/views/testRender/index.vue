@@ -6,6 +6,14 @@
     <keep-alive>
       <selectCity></selectCity>
     </keep-alive>
+    <el-upload class="upload-demo" drag action="http://localhost:5000/api/uploadFile/upload">
+      <i class="el-icon-upload"></i>
+      <div class="el-upload__text">
+        将文件拖到此处，或
+        <em>点击上传</em>
+      </div>
+      <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过2M</div>
+    </el-upload>
     <p>{{ stringTest }}</p>
     <div style="width:500px;margin:20px auto">
       <el-input v-model="keyWord" placeholder="请输入您要搜索的关键字" style="width:300px;margin-right:10px"></el-input>
