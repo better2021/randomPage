@@ -40,7 +40,12 @@
           <el-button plain @click="open2">不会自动关闭</el-button>
         </template>
       </SubmitButton>
-      <div v-loading="loading" style="width:1000px;margin:0 auto">
+
+      <div v-loading="loading" style="width:1200px;margin:0 auto">
+        <el-button type="primary" @click="handleCreate">
+          新增用户
+          <i class="el-icon-upload el-icon--right"></i>
+        </el-button>
         <el-table :data="tableData" stripe style="width: 100%">
           <el-table-column prop="userName" label="用户名" min-width="180"></el-table-column>
           <el-table-column prop="email" label="邮箱" min-width="180"></el-table-column>
@@ -53,11 +58,45 @@
           </el-table-column>
           <el-table-column label="操作" min-width="180">
             <template slot-scope="scope">
-              <!-- <el-button type="primary" size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button> -->
+              <el-button type="primary" size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
               <el-button type="danger" size="mini" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
             </template>
           </el-table-column>
         </el-table>
+        <pagination
+          v-show="total > 0"
+          :total="total"
+          :page.sync="query.pageNum"
+          :limit.sync="query.pageSize"
+          @pagination="getData()"
+        />
+      </div>
+      <!-- 弹窗 -->
+      <div>
+        <el-dialog
+          :title="type==='create'?'新增用户':'编辑用户'"
+          :visible.sync="dialogVisible"
+          width="500px"
+        >
+          <el-form ref="ruleForm" :model="fromData" :rules="rules" label-width="80px">
+            <el-form-item label="用户名称" prop="userName">
+              <el-input v-model="fromData.userName" placeholder="请输入用户名称"></el-input>
+            </el-form-item>
+            <el-form-item label="邮箱地址" prop="email">
+              <el-input v-model="fromData.email" placeholder="请输入邮箱地址"></el-input>
+            </el-form-item>
+            <el-form-item label="手机号码" prop="tel">
+              <el-input v-model="fromData.tel" placeholder="请输入手机号码"></el-input>
+            </el-form-item>
+            <el-form-item label="地址" prop="address">
+              <el-input v-model="fromData.address" placeholder="请输入地址"></el-input>
+            </el-form-item>
+          </el-form>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogVisible = false">取 消</el-button>
+            <el-button type="primary" @click="handleSure">确 定</el-button>
+          </span>
+        </el-dialog>
       </div>
     </div>
   </div>
@@ -70,10 +109,17 @@ import 'aplayer/dist/APlayer.min.css'
 import APlayer from 'aplayer'
 import { songList } from './songList.js'
 
+import Pagination from '@/components/Pagination'
 import SubmitButton from '@/components/SubmitButton'
 
+const initFromData = {
+  userName: '',
+  tel: '',
+  address: '',
+  email: ''
+}
 export default {
-  components: { qrcode, SubmitButton },
+  components: { Pagination, qrcode, SubmitButton },
   data() {
     return {
       txt: 'feiyuWeb',
@@ -81,11 +127,38 @@ export default {
       startVal: '',
       dataList: ['one', 'two', 'three'],
       loading: false,
-      tableData: []
+      type: 'create',
+      dialogVisible: false,
+      tableData: [],
+      fromData: { ...initFromData },
+      total: 0,
+      query: {
+        pageNum: 1,
+        pageSize: 10
+      },
+      rules: {
+        userName: [
+          { required: true, message: '请输入用户名', trigger: 'blur' },
+          { min: 3, max: 30, message: '长度在 3 到 30 个字符', trigger: 'blur' }
+        ],
+        email: [
+          { required: true, message: '请输入邮箱地址', trigger: 'blur' },
+          {
+            type: 'email',
+            trigger: 'change',
+            message: '请输入正确的邮箱地址'
+          }
+        ],
+        tel: [
+          { required: true, message: '请输入手机号码', trigger: 'blur' },
+          { min: 11, max: 11, message: '手机号应为11个字符', trigger: 'change' }
+        ],
+        address: [{ required: true, message: '请输入地址', trigger: 'blur' }]
+      }
     }
   },
   created() {
-    this.getDate()
+    this.getData()
   },
   mounted() {
     const options = {
@@ -220,12 +293,32 @@ export default {
         duration: 0
       })
     },
+    // 新增
+    handleCreate() {
+      this.dialogVisible = true
+      this.type = 'create'
+      this.fromData = { ...initFromData }
+      this.$nextTick(() => {
+        this.$refs['ruleForm'].clearValidate()
+      })
+    },
+    // 编辑
+    handleEdit(index, row) {
+      console.log(index, row)
+      this.dialogVisible = true
+      this.type = 'edit'
+      this.fromData = { ...row, id: row.id }
+      this.$nextTick(() => {
+        this.$refs['ruleForm'].clearValidate()
+      })
+    },
     // 获取列表数据
-    async getDate() {
+    async getData() {
       this.loading = true
       const res = await this.axios({
         url: 'http://localhost:3000/sqlApi/user/list',
-        method: 'GET'
+        method: 'GET',
+        params: this.query
       })
       this.loading = false
       if (res.status !== 200) {
@@ -233,6 +326,42 @@ export default {
       }
       console.log(res)
       this.tableData = res.data.list
+      this.total = res.data.attributes.total
+    },
+    // 确认
+    handleSure() {
+      this.$refs['ruleForm'].validate(async valid => {
+        if (!valid) return
+        let res
+        if (this.type === 'create') {
+          res = await this.axios({
+            url: 'http://localhost:3000/sqlApi/user/create',
+            method: 'POST',
+            data: this.fromData
+          })
+        } else {
+          res = await this.axios({
+            url: 'http://localhost:3000/sqlApi/user/update',
+            method: 'PUT',
+            data: this.fromData
+          })
+        }
+
+        if (res.status !== 200) {
+          this.$message = {
+            type: 'error',
+            message: res.data.msg
+          }
+          return false
+        }
+        this.dialogVisible = false
+        this.getData()
+
+        this.$message({
+          type: 'success',
+          message: this.type === 'create' ? '创建成功' : '更新成功'
+        })
+      })
     },
     // 删除
     async handleDelete(index, row) {
@@ -247,7 +376,7 @@ export default {
         return this.$message.error(res.data.msg || '删除失败')
       }
       this.$message.success('删除成功')
-      this.getDate()
+      this.getData()
     }
   }
 }
