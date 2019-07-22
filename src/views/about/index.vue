@@ -9,10 +9,11 @@
     <div class="mvBox">
       <ul>
         <li v-for="(item,index) in mvList" :key="index">
-          <img :src="item.cover">
+          <img :src="item.cover" />
         </li>
       </ul>
     </div>
+
     <div class="topFilm">
       <h3>{{ title }}</h3>
       <ul>
