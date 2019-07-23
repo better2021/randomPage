@@ -41,6 +41,14 @@
         </template>
       </SubmitButton>
 
+      <div style="width:500px;margin:20px auto">
+        <el-input v-model="keyWord" placeholder="请输入您要搜索的关键字" style="width:300px;margin-right:10px"></el-input>
+        <el-button type="primary" @click="handleFind">
+          搜索
+          <i class="el-icon-search el-icon--left"></i>
+        </el-button>
+      </div>
+
       <div v-loading="loading" style="width:1200px;margin:0 auto">
         <el-button type="primary" @click="handleCreate">
           新增用户
@@ -136,6 +144,7 @@ export default {
         pageNum: 1,
         pageSize: 10
       },
+      keyWord: '',
       rules: {
         userName: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
@@ -186,7 +195,7 @@ export default {
       a++
       console.log(a)
       btn.onclick() // 模拟点击btn
-      if (a === 5) {
+      if (a === 3) {
         downloadImg(
           'https://avatars2.githubusercontent.com/u/18045294?s=460&v=4'
         )
@@ -312,13 +321,17 @@ export default {
         this.$refs['ruleForm'].clearValidate()
       })
     },
+    // 模糊搜索
+    handleFind() {
+      this.getData()
+    },
     // 获取列表数据
     async getData() {
       this.loading = true
       const res = await this.axios({
         url: 'http://localhost:3000/sqlApi/user/list',
         method: 'GET',
-        params: this.query
+        params: { ...this.query, userName: this.keyWord }
       })
       this.loading = false
       if (res.status !== 200) {
