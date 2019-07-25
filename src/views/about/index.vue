@@ -14,8 +14,9 @@
       </ul>
     </div>
 
+    <!-- svg图标 -->
     <div class="icon">
-      <svg-icon icon-class="code"></svg-icon>
+      <svg-icon icon-class="code" style="color:red"></svg-icon>
       <svg-icon icon-class="bookmark"></svg-icon>
       <svg-icon icon-class="icon_image" />
       <svg-icon icon-class="icon_emoji" />
@@ -23,7 +24,16 @@
       <svg-icon icon-class="icon_send" />
       <svg-icon icon-class="wifi"></svg-icon>
       <svg-icon icon-class="update"></svg-icon>
-      <svg-icon icon-class="rotation-24px"></svg-icon>
+      <svg-icon icon-class="rotation-24px" style="color:pink"></svg-icon>
+    </div>
+
+    <!-- fontawesome字体图标   -->
+    <div class="icon">
+      <i class="fa fa-camera-retro"></i>
+      <i class="fa fa-cog fa-spin" style="color:green"></i>
+      <i class="fa fa-anchor"></i>
+      <i class="fa fa-bug" style="color:red"></i>
+      <i class="fa fa-bell" style="color:pink"></i>
     </div>
 
     <div class="topFilm">
