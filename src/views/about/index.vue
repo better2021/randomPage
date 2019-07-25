@@ -14,6 +14,18 @@
       </ul>
     </div>
 
+    <div class="icon">
+      <svg-icon icon-class="code"></svg-icon>
+      <svg-icon icon-class="bookmark"></svg-icon>
+      <svg-icon icon-class="icon_image" />
+      <svg-icon icon-class="icon_emoji" />
+      <svg-icon icon-class="icon_keyboard" />
+      <svg-icon icon-class="icon_send" />
+      <svg-icon icon-class="wifi"></svg-icon>
+      <svg-icon icon-class="update"></svg-icon>
+      <svg-icon icon-class="rotation-24px"></svg-icon>
+    </div>
+
     <div class="topFilm">
       <h3>{{ title }}</h3>
       <ul>
@@ -83,6 +95,9 @@ export default {
 .about {
   h1 {
     color: #7ec699;
+  }
+  .icon {
+    font-size: 50px;
   }
   .mvBox {
     ul {

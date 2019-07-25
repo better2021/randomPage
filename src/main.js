@@ -11,6 +11,8 @@ import VueLazyload from 'vue-lazyload'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'nprogress/nprogress.css'
 
+import '@/assets/icons/index' // 引入svg-icon组件
+
 // import './libs/effectClick'; // 鼠标点击背景变色效果
 
 // 生产环境关掉提示

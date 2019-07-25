@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.3 (67297) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_keyboard</title>
+    <desc>Created with Sketch.</desc>
+    <g id="-" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="3,05弹窗对话" transform="translate(-287.000000, -390.000000)">
+            <g id="输入框" transform="translate(0.000000, 380.000000)">
+                <g id="icon_keyboard" transform="translate(287.000000, 10.000000)">
+                    <rect id="fw" fill-opacity="0.3" fill="#D8D8D8" fill-rule="nonzero" opacity="0" x="0" y="0" width="36" height="36" rx="1"></rect>
+                    <g id="键盘" transform="translate(5.000000, 5.000000)">
+                        <circle id="表情_默认" fill="#D4D4D5" cx="13" cy="13" r="13"></circle>
+                        <rect id="矩形" fill="#363638" fill-rule="nonzero" x="5" y="8" width="4" height="4" rx="1"></rect>
+                        <rect id="矩形-copy-3" fill="#363638" fill-rule="nonzero" x="5" y="14" width="4" height="4" rx="1"></rect>
+                        <rect id="矩形-copy" fill="#363638" fill-rule="nonzero" x="11" y="8" width="4" height="4" rx="1"></rect>
+                        <rect id="矩形-copy-4" fill="#363638" fill-rule="nonzero" x="11" y="14" width="10" height="4" rx="1"></rect>
+                        <rect id="矩形-copy-2" fill="#363638" fill-rule="nonzero" x="17" y="8" width="4" height="10" rx="1"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
