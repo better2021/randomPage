@@ -10,9 +10,11 @@
       <router-link to="/moive">movie</router-link>|
       <router-link to="/viewImg?id=666">viewImage</router-link>|
       <router-link to="/testRender">testRender</router-link>|
-      <router-link to="/ball">ball</router-link>
+      <router-link to="/ball">ball</router-link>|
+      <router-link to="/product">product</router-link>|
+      <router-link to="/movieTable">movieTable</router-link>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
