@@ -1,5 +1,6 @@
 <template>
   <div>
+    <el-input :value="format(textInput)" placeholder="请输入内容"></el-input>
     <div id="SomeElementYouWantToAnimate"></div>
     <button @click="showTime">mixin测试</button>
     <button @click="handleTime">mixin1</button>
@@ -15,6 +16,14 @@
       <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过2M</div>
     </el-upload>
     <p>{{ stringTest }}</p>
+    <el-upload class="upload-demo" drag action="http://127.0.0.1:8000/upload">
+      <i class="el-icon-upload"></i>
+      <div class="el-upload__text">
+        将文件拖到此处，或
+        <em>点击上传</em>
+      </div>
+      <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过2M</div>
+    </el-upload>
     <div style="width:500px;margin:20px auto">
       <el-input v-model="keyWord" placeholder="请输入您要搜索的关键字" style="width:300px;margin-right:10px"></el-input>
       <el-button type="primary" @click="handleSearch">
@@ -105,9 +114,15 @@ const initFromData = {
 }
 export default {
   components: { selectCity },
+  filters: {
+    format(val) {
+      return Number(val) === 1 ? '一一一' : '二二二'
+    }
+  },
   mixins: [mymixin, mixin1],
   data() {
     return {
+      textInput: 2,
       txt: '这是vue的render函数渲染出来的',
       stringTest: 'hello node js es6',
       tableData: [],
@@ -183,6 +198,9 @@ export default {
     this.getData()
   },
   methods: {
+    format(val) {
+      return Number(val) === 1 ? '一一一' : '二二二'
+    },
     // 获取数据列表
     async getData() {
       this.loading = true
