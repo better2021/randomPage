@@ -5,7 +5,7 @@
     element-loading-text="拼命加载中"
     element-loading-background="rgba(255, 255, 255, 0.6)"
   >
-    <h1>MV与豆瓣TOP30</h1>
+    <h1 @click="handleShow">MV与豆瓣TOP30</h1>
     <div class="mvBox">
       <ul>
         <li v-for="(item,index) in mvList" :key="index">
@@ -36,6 +36,10 @@
       <i class="fa fa-bell" style="color:pink"></i>
     </div>
 
+    <div class="colorBox" v-show="isShow">
+      <sketch-picker v-model="colors" @input="updateValue"/>
+    </div>
+   
     <div class="topFilm">
       <h3>{{ title }}</h3>
       <ul>
@@ -56,14 +60,21 @@
 </template>
 <script>
 import topMv from './mv.json' // 本地导入的json数据
-import { setTimeout } from 'timers'
+import { Sketch } from 'vue-color'
 export default {
+  components:{
+    'sketch-picker': Sketch,
+  },
   data() {
     return {
       dataSource: [],
       mvList: [],
       title: '',
-      loading: false
+      loading: false,
+      isShow:true,
+      colors:{
+        hex: '#bd10e0',
+      }
     }
   },
   mounted() {
@@ -97,6 +108,15 @@ export default {
     },
     jump(todo) {
       window.open(todo.alt, '_blank')
+    },
+    handleShow(){
+      this.isShow = true;
+    },
+    // 选择的颜色
+    updateValue(){
+      console.log(this.colors.hex)
+      document.body.style.backgroundColor = this.colors.hex;
+      this.isShow = false;
     }
   }
 }
@@ -120,6 +140,10 @@ export default {
         }
       }
     }
+  }
+  .colorBox{
+    display: flex;
+    justify-content: center;
   }
   .topFilm {
     width: 100%;
