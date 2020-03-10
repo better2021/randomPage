@@ -69,6 +69,11 @@ export default new Router({
       path: '/movieTable',
       name: 'movieTable',
       component: resolve => require(['@/views/movieTable'], resolve)
+    },
+    {
+      path: '/tanmu',
+      name: 'tanmu',
+      component: resolve => require(['@/views/tanmu'], resolve)
     }
   ]
 })

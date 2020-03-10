@@ -1,18 +1,19 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link>|
-      <router-link to="/about">douban</router-link>|
-      <router-link to="/film">film</router-link>|
-      <router-link to="/joke">joke</router-link>|
-      <router-link to="/music">music</router-link>|
-      <router-link to="/video">video</router-link>|
-      <router-link to="/moive">movie</router-link>|
-      <router-link to="/viewImg?id=666">viewImage</router-link>|
-      <router-link to="/testRender">testRender</router-link>|
-      <router-link to="/ball">ball</router-link>|
-      <router-link to="/product">product</router-link>|
-      <router-link to="/movieTable">movieTable</router-link>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">douban</router-link> |
+      <router-link to="/film">film</router-link> |
+      <router-link to="/joke">joke</router-link> |
+      <router-link to="/music">music</router-link> |
+      <router-link to="/video">video</router-link> |
+      <router-link to="/moive">movie</router-link> |
+      <router-link to="/viewImg?id=666">viewImage</router-link> |
+      <router-link to="/testRender">testRender</router-link> |
+      <router-link to="/ball">ball</router-link> |
+      <router-link to="/product">product</router-link> |
+      <router-link to="/movieTable">movieTable</router-link> |
+      <router-link to="/tanmu">tanmu</router-link>
     </div>
     <router-view />
   </div>
