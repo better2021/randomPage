@@ -74,6 +74,11 @@ export default new Router({
       path: '/tanmu',
       name: 'tanmu',
       component: resolve => require(['@/views/tanmu'], resolve)
+    },
+    {
+      path: '/ts',
+      name: 'ts',
+      component: resolve => require(['@/views/ts'], resolve)
     }
   ]
 })
