@@ -14,7 +14,7 @@
       <router-link to="/product">product</router-link> |
       <router-link to="/movieTable">movieTable</router-link> |
       <router-link to="/tanmu">tanmu</router-link> |
-      <router-link to="/ts">ts</router-link>
+      <router-link to="/editor">ts</router-link>
     </div>
     <router-view />
   </div>

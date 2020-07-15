@@ -76,9 +76,9 @@ export default new Router({
       component: resolve => require(['@/views/tanmu'], resolve)
     },
     {
-      path: '/ts',
-      name: 'ts',
-      component: resolve => require(['@/views/ts'], resolve)
+      path: '/editor',
+      name: 'editor',
+      component: resolve => require(['@/views/editor'], resolve)
     }
   ]
 })
