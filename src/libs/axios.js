@@ -37,7 +37,7 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
   response => {
     if (response.status === 200) {
-      return Promise.resolve(response)
+      return Promise.resolve(response.data)
     } else {
       return Promise.reject(response)
     }

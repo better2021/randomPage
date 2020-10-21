@@ -89,7 +89,7 @@ export default {
       total: 0,
       query: {
         pageNum: 1,
-        pageSize: 10
+        pageSize: 5
       },
       rules: {
         name: [
@@ -108,13 +108,13 @@ export default {
     async getData() {
       this.loading = true
       const res = await this.axios({
-        url: 'http://127.0.0.1:8081/api/v1/movie',
+        url: 'http://127.0.0.1:8081/api/v2/film',
         method: 'GET',
         params: { ...this.query, name: this.keyWord }
       })
       this.loading = false
-      this.list = res.data.data
-      this.total = res.data.total
+      this.list = res.data
+      this.total = res.attributes.total
       console.log(res)
     },
     // 模糊搜索
@@ -148,13 +148,13 @@ export default {
         let res
         if (this.type === 'create') {
           res = await this.axios({
-            url: 'http://127.0.0.1:8081/api/v1/movie',
+            url: 'http://127.0.0.1:8081/api/v2/film',
             method: 'POST',
             data: { ...this.fromData }
           })
         } else {
           res = await this.axios({
-            url: `http://127.0.0.1:8081/api/v1/movie/${this.fromData.id}`,
+            url: `http://127.0.0.1:8081/api/v2/film/${this.fromData.id}`,
             method: 'PUT',
             data: { ...this.fromData }
           })
@@ -185,7 +185,7 @@ export default {
       })
         .then(async() => {
           const res = await this.axios({
-            url: `http://127.0.0.1:8081/api/v1/movie/${row.id}`,
+            url: `http://127.0.0.1:8081/api/v2/film/${row.id}`,
             method: 'DELETE'
           })
           if (res.status !== 200) {
