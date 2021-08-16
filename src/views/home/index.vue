@@ -60,6 +60,7 @@ export default {
     // 父组件接受子组件传来的值
     getObj(val) {
       console.log(val)
+      console.log(123)
     }
   }
 }
